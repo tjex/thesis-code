@@ -11,6 +11,11 @@
 
 # compute similarities
 
-# map vector results to note titles
+# map vector results to note titles (key / value pairs?)
+
+# cluster similar documents based on user provided similarity strength variable?
+# this would then be used to return groups of results, instead of one giant
+# table
+# see here: https://github.com/UKPLab/sentence-transformers/tree/master/examples/applications/clustering
 
 # return results

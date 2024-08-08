@@ -1,9 +1,20 @@
 # https://www.sbert.net/docs/quickstart.html
 
+# check if correct conda env is active first
+import os
+
+env = os.environ['CONDA_PREFIX']
+env = os.path.basename(env)
+
+if env != "thesis":
+    print("'thesis' conda env not active. Exiting program.")
+    exit(1)
+
+
 from sentence_transformers import SentenceTransformer
 
 # 1. Load a pretrained Sentence Transformer model
-model = SentenceTransformer("all-MiniLM-L6-v2")
+model = SentenceTransformer("sentence-t5-base")
 
 # The sentences to encode
 sentences = [
