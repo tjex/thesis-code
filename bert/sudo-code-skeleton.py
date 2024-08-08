@@ -9,6 +9,9 @@
 
 # model.encode(the_zk_text_data) 
 
+# tokenize / clean
+# get rid of markdown characters, but keep whole note bodies as a sentence!
+
 # compute similarities
 
 # map vector results to note titles (key / value pairs?)
