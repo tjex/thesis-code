@@ -29,6 +29,7 @@ with open("data/ps.json") as f:
 note_bodies = [note["body"] for note in notes]
 
 cleaned_notes = [""] * len(note_bodies)
+dirty_notes = [""] * len(note_bodies)
 
 for i, note in enumerate(note_bodies):
     note = note.replace("\n", " ")  # flatten for regex ease of use
@@ -45,18 +46,24 @@ for i, note in enumerate(note_bodies):
 #         cleaned_notes_file.write(n)
 #         cleaned_notes_file.write("\n\n")
 
+for i, note in enumerate(note_bodies):
+    note = note.replace("\n", " ")  # flatten for regex ease of use
+    dirty_notes[i] = note
 
-# 2. Calculate embeddings by calling model.encode()
-embeddings = model.encode(cleaned_notes)
 
-# 3. Calculate the embedding similarities
-similarities = model.similarity(embeddings, embeddings)
+# Calculate embeddings
+embeddings_clean = model.encode(cleaned_notes)
+similarities_clean = model.similarity(embeddings_clean, embeddings_clean)
+min_clean, _ = torch.min(similarities_clean, dim=0, keepdim=False)
 
-min, _ = torch.min(similarities, dim=0, keepdim=False)
-# max, _ = torch.max(similarities, dim=0, keepdim=False)
+embeddings_dirty = model.encode(dirty_notes)
+similarities_dirty = model.similarity(embeddings_dirty, embeddings_dirty)
+min_dirty, _ = torch.min(similarities_dirty, dim=0, keepdim=False)
 
-print(min)
-
-# tensor([[1.0000, 0.6660, 0.1046], # first sentence
-#         [0.6660, 1.0000, 0.1411], # second sentence
-#         [0.1046, 0.1411, 1.0000]]) # third sentence
+print("min dirty\n")
+print(min_dirty, "\n")
+print("min clean\n")
+print(min_clean, "\n")
+print("dirty - clean\n")
+diff = min_dirty - min_clean
+print(diff)
