@@ -8,12 +8,15 @@ import torch
 import nltk
 from nltk import sent_tokenize
 from nltk.tokenize.treebank import TreebankWordDetokenizer, TreebankWordTokenizer
-from sentence_transformers import SentenceTransformer
+from sentence_transformers import SentenceTransformer, util
+from sklearn.cluster import AgglomerativeClustering
 
 
 nltk.download("punkt")
 
-model = SentenceTransformer("sentence-t5-base")
+# model = SentenceTransformer("sentence-t5-base")
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
 wd = TreebankWordDetokenizer()
 wt = TreebankWordTokenizer()
 
@@ -26,12 +29,12 @@ with open("data/ps.json") as f:
     notes = json.load(f)
 
 
-note_bodies = [note["body"] for note in notes]
+dirty_notes = [note["body"] for note in notes]
+note_titles = [title["title"] for title in notes]
 
-cleaned_notes = [""] * len(note_bodies)
-dirty_notes = [""] * len(note_bodies)
+cleaned_notes = [""] * len(dirty_notes)
 
-for i, note in enumerate(note_bodies):
+for i, note in enumerate(dirty_notes):
     note = note.replace("\n", " ")  # flatten for regex ease of use
     note = re.sub(md_link_patt, r"\1", note)
     note = re.sub(md_symbols_patt, "", note)
@@ -40,30 +43,44 @@ for i, note in enumerate(note_bodies):
     # note_toks = dtkn.detokenize(note_toks)
     # note_body_toks += note_toks
 
+
 # write to file
 # with open("data/cleaned_notes.txt", "w") as cleaned_notes_file:
 #     for n in cleaned_notes:
 #         cleaned_notes_file.write(n)
 #         cleaned_notes_file.write("\n\n")
 
-for i, note in enumerate(note_bodies):
-    note = note.replace("\n", " ")  # flatten for regex ease of use
-    dirty_notes[i] = note
+
+# EMBEDDING
+
+embeddings = model.encode(cleaned_notes)
+
+# SIMILARITY
+
+similarities = model.similarity(embeddings, embeddings)
+min, _ = torch.min(similarities, dim=0, keepdim=False)
 
 
-# Calculate embeddings
-embeddings_clean = model.encode(cleaned_notes)
-similarities_clean = model.similarity(embeddings_clean, embeddings_clean)
-min_clean, _ = torch.min(similarities_clean, dim=0, keepdim=False)
-
-embeddings_dirty = model.encode(dirty_notes)
-similarities_dirty = model.similarity(embeddings_dirty, embeddings_dirty)
-min_dirty, _ = torch.min(similarities_dirty, dim=0, keepdim=False)
-
-print("min dirty\n")
-print(min_dirty, "\n")
 print("min clean\n")
-print(min_clean, "\n")
-print("dirty - clean\n")
-diff = min_dirty - min_clean
-print(diff)
+print(min)
+
+# CLUSERING
+
+# Perform agglomerative clustering
+clustering_model = AgglomerativeClustering(
+    n_clusters=None, distance_threshold=1.5
+)  # , affinity='cosine', linkage='average', distance_threshold=0.4)
+clustering_model.fit(embeddings)
+cluster_assignment = clustering_model.labels_
+
+clustered_sentences = {}
+for sentence_id, cluster_id in enumerate(cluster_assignment):
+    if cluster_id not in clustered_sentences:
+        clustered_sentences[cluster_id] = []
+
+    clustered_sentences[cluster_id].append(note_titles[sentence_id])
+
+for i, cluster in clustered_sentences.items():
+    print("Cluster ", i + 1)
+    print(cluster)
+    print("")
