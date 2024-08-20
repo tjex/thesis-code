@@ -3,13 +3,10 @@
 # check if correct conda env is active first
 import json
 import re
-import torch
+import clustering as c
 
-import nltk
-from nltk import sent_tokenize
 from nltk.tokenize.treebank import TreebankWordDetokenizer, TreebankWordTokenizer
-from sentence_transformers import SentenceTransformer, util
-from sklearn.cluster import AgglomerativeClustering
+from sentence_transformers import SentenceTransformer
 
 
 # nltk.download("punkt")
@@ -39,17 +36,6 @@ for i, note in enumerate(dirty_notes):
     note = re.sub(md_link_patt, r"\1", note)
     note = re.sub(md_symbols_patt, "", note)
     cleaned_notes[i] = note
-    # note_toks += sent_tokenize(note)
-    # note_toks = dtkn.detokenize(note_toks)
-    # note_body_toks += note_toks
-
-
-# write to file
-# with open("data/cleaned_notes.txt", "w") as cleaned_notes_file:
-#     for n in cleaned_notes:
-#         cleaned_notes_file.write(n)
-#         cleaned_notes_file.write("\n\n")
-
 
 # EMBEDDING
 
@@ -76,21 +62,10 @@ print(
     similarities[note1][note2],
 )
 
-# CLUSERING
+# CLUSTERING
+clusters = c.agglo_clustering(embeddings, note_titles)
 
-# Perform agglomerative clustering
-clustering_model = AgglomerativeClustering(n_clusters=None, distance_threshold=2)
-clustering_model.fit(embeddings)
-cluster_assignment = clustering_model.labels_
-
-clustered_sentences = {}
-for sentence_id, cluster_id in enumerate(cluster_assignment):
-    if cluster_id not in clustered_sentences:
-        clustered_sentences[cluster_id] = []
-
-    clustered_sentences[cluster_id].append(note_titles[sentence_id])
-
-for i, cluster in clustered_sentences.items():
+for i, cluster in clusters.items():
     print("Cluster ", i + 1)
     print(cluster)
     print("")
