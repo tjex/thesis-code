@@ -79,7 +79,7 @@ print(
 # CLUSERING
 
 # Perform agglomerative clustering
-clustering_model = AgglomerativeClustering(n_clusters=None, distance_threshold=1.5)
+clustering_model = AgglomerativeClustering(n_clusters=None, distance_threshold=2)
 clustering_model.fit(embeddings)
 cluster_assignment = clustering_model.labels_
 
