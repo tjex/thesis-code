@@ -63,9 +63,6 @@ print(
 )
 
 # CLUSTERING
-clusters = c.agglo_clustering(embeddings, note_titles)
-
-for i, cluster in clusters.items():
-    print("Cluster ", i + 1)
-    print(cluster)
-    print("")
+c.agglo_clustering(embeddings, note_titles, 3)
+print()
+c.fast_clustering(embeddings, note_titles)
