@@ -12,7 +12,7 @@ from sentence_transformers import SentenceTransformer, util
 from sklearn.cluster import AgglomerativeClustering
 
 
-nltk.download("punkt")
+# nltk.download("punkt")
 
 # model = SentenceTransformer("sentence-t5-base")
 model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -58,18 +58,28 @@ embeddings = model.encode(cleaned_notes)
 # SIMILARITY
 
 similarities = model.similarity(embeddings, embeddings)
-min, _ = torch.min(similarities, dim=0, keepdim=False)
+# min, _ = similarities.min(dim=0, keepdim=False)
+# minmax = similarities.aminmax(dim=0, keepdim=False)
 
-
-print("min clean\n")
-print(min)
+# example similarity output
+note1 = 10
+note2 = 20
+print()
+print(
+    "Similarity score between:\n",
+    "-",
+    note_titles[note1],
+    "\n",
+    "-",
+    note_titles[note2],
+    "\n\n",
+    similarities[note1][note2],
+)
 
 # CLUSERING
 
 # Perform agglomerative clustering
-clustering_model = AgglomerativeClustering(
-    n_clusters=None, distance_threshold=1.5
-)  # , affinity='cosine', linkage='average', distance_threshold=0.4)
+clustering_model = AgglomerativeClustering(n_clusters=None, distance_threshold=1.5)
 clustering_model.fit(embeddings)
 cluster_assignment = clustering_model.labels_
 
