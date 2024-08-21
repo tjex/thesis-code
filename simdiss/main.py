@@ -3,6 +3,7 @@
 # check if correct conda env is active first
 import json
 import re
+import torch
 import clustering as c
 
 from nltk.tokenize.treebank import TreebankWordDetokenizer, TreebankWordTokenizer
@@ -44,25 +45,34 @@ embeddings = model.encode(cleaned_notes)
 # SIMILARITY
 
 similarities = model.similarity(embeddings, embeddings)
-# min, _ = similarities.min(dim=0, keepdim=False)
-# minmax = similarities.aminmax(dim=0, keepdim=False)
+print("similarities")
+print(similarities)
 
-# example similarity output
-note1 = 10
-note2 = 20
-print()
-print(
-    "Similarity score between:\n",
-    "-",
-    note_titles[note1],
-    "\n",
-    "-",
-    note_titles[note2],
-    "\n\n",
-    similarities[note1][note2],
-)
+dissimilarities = similarities
+for i, row in enumerate(dissimilarities.numpy()):
+    for j, val in enumerate(row):
+        if i != j:
+            row[j] = 1 - val
+
+print("dissimilarities")
+print(torch.round(dissimilarities, decimals=4))
+
+# # example similarity output
+# note1 = 10
+# note2 = 20
+# print()
+# print(
+#     "Similarity score between:\n",
+#     "-",
+#     note_titles[note1],
+#     "\n",
+#     "-",
+#     note_titles[note2],
+#     "\n\n",
+#     similarities[note1][note2],
+# )
 
 # CLUSTERING
-c.agglo_clustering(embeddings, note_titles, 3)
-print()
-c.fast_clustering(embeddings, note_titles)
+# c.agglo_clustering(similarities, note_titles, 10)
+# print()
+# c.fast_clustering(embeddings, note_titles)

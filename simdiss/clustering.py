@@ -1,10 +1,14 @@
 from sklearn.cluster import AgglomerativeClustering
 from sentence_transformers import util
 
+# https://www.sbert.net/examples/applications/clustering/README.html
+
 
 # Agglomerative clustering. Returns clusters.
 def agglo_clustering(embeddings, note_titles, nc):
-    clustering_model = AgglomerativeClustering(n_clusters=nc, distance_threshold=None)
+    clustering_model = AgglomerativeClustering(
+        n_clusters=nc, distance_threshold=None
+    )
     clustering_model.fit(embeddings)
     cluster_assignment = clustering_model.labels_
 
@@ -26,13 +30,13 @@ def fast_clustering(embeddings, note_titles):
     # Two parameters to tune:
     # min_cluster_size: Only consider cluster that have at least 25 elements
     # threshold: Consider sentence pairs with a cosine-similarity larger than threshold as similar
-    clusters = util.community_detection(embeddings, min_community_size=2, threshold=0.1)
+    clusters = util.community_detection(embeddings, min_community_size=3, threshold=0.3)
+    print(clusters)
 
     # Print for all clusters the top 3 and bottom 3 elements
     for i, cluster in enumerate(clusters):
         print(f"\nCluster {i + 1}, #{len(cluster)} Elements ")
         for note_id in cluster[0:3]:
             print("\t", note_titles[note_id])
-        print("\t", "...")
-        for note_id in cluster[-3:]:
-            print("\t", note_titles[note_id])
+        if len(cluster) > 3:
+            print(f"\t ... and {len(cluster) - 3} more")
