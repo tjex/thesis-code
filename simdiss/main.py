@@ -6,6 +6,7 @@ import re
 import torch
 import clustering as c
 import similarity as s
+import util as u
 
 from nltk.tokenize.treebank import TreebankWordDetokenizer, TreebankWordTokenizer
 from sentence_transformers import SentenceTransformer
@@ -47,7 +48,8 @@ embeddings = model.encode(cleaned_notes)
 
 similarities = s.cos_sim(embeddings)
 
-c.manual(similarities, note_titles, 25)
+c.manual(similarities, note_titles, 51)
+
 
 # # example similarity output
 # note1 = 10

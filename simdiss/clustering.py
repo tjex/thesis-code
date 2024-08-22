@@ -61,25 +61,27 @@ def manual(similarities, note_titles, note_index):
     if mean == 0:
         return
 
-    seg_length = mean / 20
+    seg_length = mean / 5
     seg1 = seg_length
     seg2 = seg_length * 2
     seg3 = seg_length * 3
     seg4 = seg_length * 4
 
-    print(seg1, seg2, seg3, seg4)
-
     for i, score in enumerate(similarities[note_index]):
         if score <= seg1:
             s1.append(note_titles[i])
-        elif score > seg1 <= seg2:
+        elif seg1 < score <= seg2:
             s2.append(note_titles[i])
-        elif score > seg3 <= seg4:
+        elif seg2 < score <= seg3:
             s3.append(note_titles[i])
-        elif score > seg4 < 1:
+        elif seg3 < score >= seg4:
             s4.append(note_titles[i])
 
-    print(f"DEBUG: {len(similarities[note_index])}, should equal {len(s1) + len(s2) + len(s3) + len(s4)}")
+    print(
+        f"DEBUG: {len(similarities[note_index])}, should equal {len(s1) + len(s2) + len(s3) + len(s4)}"
+    )
+    print(f"mean: {mean}\nseg1: {seg1}\nseg2 {seg2}\nseg3 {seg3}\nseg4 {seg4}\n")
+    print(similarities[note_index])
 
     print(f"Similarity relationships for, {note_titles[note_index]}")
     print(f"Least similar, {len(s1)} notes:")
