@@ -1,8 +1,12 @@
 from sklearn.cluster import AgglomerativeClustering
 from sentence_transformers import util
 import torch
+import note_data
 
 # https://www.sbert.net/examples/applications/clustering/README.html
+
+nd = note_data.NoteData
+titles_arr, titles_dict = nd.titles()
 
 
 # Agglomerative clustering. Returns clusters.
@@ -44,11 +48,14 @@ def fast_clustering(similarities, note_titles):
 
 
 # for each note, find the most and least similar notes
-def note_simdiss(similarities, note_titles, note_index):
+def note_simdiss(similarities, title):
     s1 = []
     s2 = []
     s3 = []
     s4 = []
+    s5 = []
+
+    note_index = nd.index_from_title(title)
 
     sum = 0
     mean = 0
@@ -69,29 +76,33 @@ def note_simdiss(similarities, note_titles, note_index):
 
     for i, score in enumerate(similarities[note_index]):
         if score <= seg1:
-            s1.append(note_titles[i])
+            s1.append(titles_arr[i])
         elif seg1 < score <= seg2:
-            s2.append(note_titles[i])
+            s2.append(titles_arr[i])
         elif seg2 < score <= seg3:
-            s3.append(note_titles[i])
-        elif seg3 < score >= seg4:
-            s4.append(note_titles[i])
+            s3.append(titles_arr[i])
+        elif seg3 < score <= seg4:
+            s4.append(titles_arr[i])
+        elif score > seg4:
+            s5.append(titles_arr[i])
 
     print(
         f"DEBUG: {len(similarities[note_index])}, should equal {len(s1) + len(s2) + len(s3) + len(s4)}"
     )
     print(f"mean: {mean}\nseg1: {seg1}\nseg2 {seg2}\nseg3 {seg3}\nseg4 {seg4}\n")
-    print(similarities[note_index])
 
-    print(f"Similarity relationships for, {note_titles[note_index]}")
+    print(f"Similarity relationships for, {titles_arr[note_index]}")
     print(f"Least similar, {len(s1)} notes:")
-    # print("\t", "\n\t".join([note for note in s1]))
+    print("\t", "\n\t".join([note for note in s1]))
     print()
-    print(f"Somewhat similar, {len(s2)} notes:")
-    # print("\t", "\n\t".join([note for note in s2]))
+    print(f"Slightly similar, {len(s2)} notes:")
+    print("\t", "\n\t".join([note for note in s2]))
     print()
-    print(f"Very similar, {len(s3)} notes:")
-    # print("\t", "\n\t".join([note for note in s3]))
+    print(f"Somewhat similar, {len(s3)} notes:")
+    print("\t", "\n\t".join([note for note in s3]))
     print()
-    print(f"Most similar, {len(s4)} notes:")
-    # print("\t", "\n\t".join([note for note in s4]))
+    print(f"Very similar, {len(s4)} notes:")
+    print("\t", "\n\t".join([note for note in s4]))
+    print()
+    print(f"Most similar, {len(s5)} notes:")
+    print("\t", "\n\t".join([note for note in s5]))

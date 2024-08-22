@@ -3,7 +3,7 @@
 # check if correct conda env is active first
 import clustering as c
 import similarity as s
-import parse as p
+import note_data
 
 from sentence_transformers import SentenceTransformer
 
@@ -12,14 +12,18 @@ from sentence_transformers import SentenceTransformer
 # model = SentenceTransformer("sentence-t5-base")
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-cleaned_notes, note_titles = p.corpus("data/ps.json")
+nd = note_data.NoteData
+nd.corpus("data/ps.json")
+cleaned_notes = nd.note_bodies()
+
 embeddings = model.encode(cleaned_notes)
 
 # SIMILARITY
 
 similarities = s.cos_sim(embeddings)
 
-c.note_simdiss(similarities, note_titles, 51)
+title = "YUA - How will AI affect the 2024 elections?"
+c.note_simdiss(similarities, title)
 
 
 # # example similarity output
