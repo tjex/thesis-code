@@ -60,9 +60,9 @@ def note_simdiss(similarities, title):
 
     sum = 0
     mean = 0
-    for val in similarities[note_index]:
+    for i, val in enumerate(similarities[note_index]):
         # ignore the note's own index, which is 1.000 and will skew the mean
-        if val < 1:
+        if i != note_index:
             sum += val
         mean = sum / len(similarities[note_index])
 

@@ -17,6 +17,7 @@ class NoteData:
         titles_arr = [title["title"] for title in notes]
 
         titles_dict = {}
+        # create a dictionary for fast search
         for i, title in enumerate(titles_arr):
             titles_dict[title] = i
 
