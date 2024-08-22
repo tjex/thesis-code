@@ -5,6 +5,7 @@ import json
 import re
 import torch
 import clustering as c
+import similarity as s
 
 from nltk.tokenize.treebank import TreebankWordDetokenizer, TreebankWordTokenizer
 from sentence_transformers import SentenceTransformer
@@ -44,18 +45,9 @@ embeddings = model.encode(cleaned_notes)
 
 # SIMILARITY
 
-similarities = model.similarity(embeddings, embeddings)
-print("similarities")
-print(similarities)
+similarities = s.cos_sim(embeddings)
 
-dissimilarities = similarities
-for i, row in enumerate(dissimilarities.numpy()):
-    for j, val in enumerate(row):
-        if i != j:
-            row[j] = 1 - val
-
-print("dissimilarities")
-print(torch.round(dissimilarities, decimals=4))
+c.manual(similarities, note_titles, 25)
 
 # # example similarity output
 # note1 = 10
@@ -73,6 +65,9 @@ print(torch.round(dissimilarities, decimals=4))
 # )
 
 # CLUSTERING
-# c.agglo_clustering(similarities, note_titles, 10)
+# c.agglo_clustering(similarities, note_titles, 6)
+# print("---------------------------------")
+# print("---------------------------------")
+# c.agglo_clustering(dissimilarities, note_titles, 6)
 # print()
 # c.fast_clustering(embeddings, note_titles)
