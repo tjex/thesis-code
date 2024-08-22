@@ -6,11 +6,8 @@ md_symbols_patt = r"(#)|(-)|(>)|(\*)|(\")"
 md_link_patt = r"\[(.*?)\]\(.*?\)"
 
 
+# The NoteData class is for handling the user's Zettelkasten notes.
 class NoteData:
-    titles_arr = []
-    titles_dict = {}
-    cleaned_notes = []
-
     @classmethod
     def corpus(cls, path):
         with open(path) as f:
