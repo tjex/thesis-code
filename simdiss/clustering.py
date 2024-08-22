@@ -44,7 +44,7 @@ def fast_clustering(similarities, note_titles):
 
 
 # for each note, find the most and least similar notes
-def manual(similarities, note_titles, note_index):
+def note_simdiss(similarities, note_titles, note_index):
     s1 = []
     s2 = []
     s3 = []
