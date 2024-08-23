@@ -1,12 +1,10 @@
 from sklearn.cluster import AgglomerativeClustering
 from sentence_transformers import util
-import torch
-import note_data
-import numpy as np
+import corpus as cor
 
 # https://www.sbert.net/examples/applications/clustering/README.html
 
-nd = note_data.NoteData
+corpus = cor.Corpus
 
 
 # Agglomerative clustering. Returns clusters.
@@ -48,6 +46,7 @@ def fast_clustering(similarities, note_titles):
 
 
 # for each note, find the most and least similar notes
+# TODO: What should this function return for best usage with zk?
 def note_simdiss(similarities, title):
     s1 = []
     s2 = []
@@ -55,8 +54,8 @@ def note_simdiss(similarities, title):
     s4 = []
     s5 = []
 
-    note_index = nd.index_from_title(title)
-    titles_arr, _ = nd.titles()
+    note_index = corpus.index_from_title(title)
+    titles_arr = corpus.note_titles_array()
 
     sum = 0
     mean = 0
@@ -66,6 +65,8 @@ def note_simdiss(similarities, title):
             sum += val
         mean = sum / len(similarities[note_index])
 
+    # TODO: This should be its own function, where the user can define how many
+    # segments the results should be split between.
     seg_length = mean / 4
     seg1 = seg_length
     seg2 = seg_length * 2
