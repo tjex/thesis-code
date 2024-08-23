@@ -9,15 +9,14 @@ import corpus as cor
 corpus = cor.Corpus
 
 # Source, process and generate necessary data.
-corpus.init("data/100_clones.json")
+corpus.init("data/ps.json")
 corpus.prepare_corpus()
 corpus.generate_embeddings()
 embeddings = corpus.embeddings()
 similarities = s.cos_sim(embeddings)
-print(similarities)
 
 # Similarity
-title = "foo-5"
+title = "YUA - How will AI affect the 2024 elections?"
 c.note_simdiss(similarities, title)
 
 # Clustering
