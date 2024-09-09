@@ -1,6 +1,5 @@
 import json
 import regex as re
-from sentence_transformers import SentenceTransformer
 
 
 md_symbols_patt = r"(#)|(-)|(>)|(\*)|(\")"
@@ -12,7 +11,6 @@ class Corpus:
     @classmethod
     def init(cls, path):
         cls.note_data = path
-        cls.model = SentenceTransformer("all-MiniLM-L6-v2")
 
     @classmethod
     def prepare_corpus(cls):
@@ -41,8 +39,8 @@ class Corpus:
         cls.titles_dict = titles_dict
 
     @classmethod
-    def generate_embeddings(cls):
-        cls.corpus_embeddings = cls.model.encode(cls.cleaned_notes)
+    def generate_embeddings(cls, model):
+        cls.corpus_embeddings = model.encode(cls.cleaned_notes)
 
     # Getters
 

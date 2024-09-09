@@ -57,38 +57,41 @@ def note_simdiss(similarities, title):
     note_index = corpus.index_from_title(title)
     titles_arr = corpus.note_titles_array()
 
-    sum = 0
-    mean = 0
-    for i, val in enumerate(similarities[note_index]):
-        # ignore the note's own index, which is 1.000 and will skew the mean
-        if i != note_index:
-            sum += val
-        mean = sum / len(similarities[note_index])
-
     # TODO: This should be its own function, where the user can define how many
     # segments the results should be split between.
-    seg_length = mean / 4
-    seg1 = seg_length
-    seg2 = seg_length * 2
-    seg3 = mean + seg_length
-    seg4 = mean + seg_length * 2
+
+    # cosine similarity returns a range of -1 to -1.
+    mid = 0
+    seg_length = 0.2
+    seg1 = mid - (seg_length * 2)
+    seg2 = mid - (seg_length)
+    seg3 = mid + seg_length
+    seg4 = mid + (seg_length * 2)
 
     for i, score in enumerate(similarities[note_index]):
-        if score <= seg1:
-            s1.append(titles_arr[i])
-        elif seg1 < score <= seg2:
-            s2.append(titles_arr[i])
-        elif seg2 < score <= seg3:
-            s3.append(titles_arr[i])
-        elif seg3 < score <= seg4:
-            s4.append(titles_arr[i])
-        elif score > seg4:
-            s5.append(titles_arr[i])
+        if i != note_index:
+            t = titles_arr[i]
+            s = similarities[note_index][i].item()
+            s = round(s, 2)
+            report = f"{t} ({str(s)})"
 
+            if score <= seg1:
+                s1.append(report)
+            elif seg1 < score <= seg2:
+                s2.append(report)
+            elif seg2 < score <= seg3:
+                s3.append(report)
+            elif seg3 < score <= seg4:
+                s4.append(report)
+            elif seg4 < score:
+                s5.append(report)
+
+    # make sure all notes are included in the results (except the query note
+    # iteslf, hence -1)
     print(
-        f"DEBUG: {len(similarities[note_index])}, should equal {len(s1) + len(s2) + len(s3) + len(s4)}"
+        f"DEBUG: {len(similarities[note_index]) - 1}, should equal {len(s1) + len(s2) + len(s3) + len(s4) + len(s5)}"
     )
-    print(f"mean: {mean}\nseg1: {seg1}\nseg2 {seg2}\nseg3 {seg3}\nseg4 {seg4}\n")
+    print(f"mean: {mid}\nseg1: {seg1}\nseg2 {seg2}\nseg3 {seg3}\nseg4 {seg4}\n")
 
     full_output = True
     if full_output:

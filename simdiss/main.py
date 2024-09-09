@@ -1,22 +1,25 @@
 # https://www.sbert.net/docs/quickstart.html
 
 # check if correct conda env is active first
+from sentence_transformers import SentenceTransformer
 import clustering as c
 import similarity as s
 import corpus as cor
 
 # nltk.download("punkt")
 corpus = cor.Corpus
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
 # Source, process and generate necessary data.
 corpus.init("data/ps.json")
 corpus.prepare_corpus()
-corpus.generate_embeddings()
+corpus.generate_embeddings(model)
 embeddings = corpus.embeddings()
-similarities = s.cos_sim(embeddings)
+similarities = s.cos_sim_elementwise(embeddings)
 
 # Similarity
-title = "YUA - How will AI affect the 2024 elections?"
+# title = "The Academic Paper - Abstract"
+title = "delete chinese"
 c.note_simdiss(similarities, title)
 
 # Clustering
