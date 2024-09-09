@@ -8,7 +8,7 @@ import corpus as cor
 
 # nltk.download("punkt")
 corpus = cor.Corpus
-model = SentenceTransformer("all-MiniLM-L6-v2")
+model = SentenceTransformer("all-mpnet-base-v2")
 
 # Source, process and generate necessary data.
 corpus.init("data/ps.json")

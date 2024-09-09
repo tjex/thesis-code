@@ -1,10 +1,11 @@
 from sklearn.cluster import AgglomerativeClustering
 from sentence_transformers import util
-import corpus as cor
+import util as u
+import corpus as c
 
 # https://www.sbert.net/examples/applications/clustering/README.html
 
-corpus = cor.Corpus
+corpus = c.Corpus
 
 
 # Agglomerative clustering. Returns clusters.
@@ -45,9 +46,26 @@ def fast_clustering(similarities, note_titles):
             print(f"\t ... and {len(cluster) - 3} more")
 
 
-# for each note, find the most and least similar notes
+# creates four values that are used as cross-over / division points
+# for clustering similarity results into "least similar" to "most similar"
+# segments
+def calculate_divisions(min, max):
+    mid = (min + max) / 2
+    sim_range = max - min
+    seg_length = sim_range / 6
+    div1 = round(mid - (seg_length * 2), 4)
+    div2 = round(mid - (seg_length), 4)
+    div3 = round(mid + seg_length, 4)
+    div4 = round(mid + (seg_length * 2), 4)
+
+    return div1, div2, div3, div4
+
+
+# Process a simdiss for a singular note against all other notes
+# in the corpus. There are 5 segments from "least similar" to "most similar".
 # TODO: What should this function return for best usage with zk?
 def note_simdiss(similarities, title):
+    # segments to hold "least similar" to "most similar" notes.
     s1 = []
     s2 = []
     s3 = []
@@ -56,42 +74,47 @@ def note_simdiss(similarities, title):
 
     note_index = corpus.index_from_title(title)
     titles_arr = corpus.note_titles_array()
+    # reduce to a 1d array for simplified handling
+    similarities = similarities[note_index]
 
-    # TODO: This should be its own function, where the user can define how many
-    # segments the results should be split between.
+    min, max = u.unbiased_min_max(similarities, note_index)
+    div1, div2, div3, div4 = calculate_divisions(min, max)
 
-    # cosine similarity returns a range of -1 to -1.
-    mid = 0
-    seg_length = 0.2
-    seg1 = mid - (seg_length * 2)
-    seg2 = mid - (seg_length)
-    seg3 = mid + seg_length
-    seg4 = mid + (seg_length * 2)
-
-    for i, score in enumerate(similarities[note_index]):
+    for i, score in enumerate(similarities):
         if i != note_index:
             t = titles_arr[i]
-            s = similarities[note_index][i].item()
-            s = round(s, 2)
+            s = round(similarities[i].item(), 2)
             report = f"{t} ({str(s)})"
 
-            if score <= seg1:
+            if score <= div1:
                 s1.append(report)
-            elif seg1 < score <= seg2:
+            elif div1 < score <= div2:
                 s2.append(report)
-            elif seg2 < score <= seg3:
+            elif div2 < score <= div3:
                 s3.append(report)
-            elif seg3 < score <= seg4:
+            elif div3 < score <= div4:
                 s4.append(report)
-            elif seg4 < score:
+            elif div4 < score:
                 s5.append(report)
 
-    # make sure all notes are included in the results (except the query note
-    # iteslf, hence -1)
     print(
-        f"DEBUG: {len(similarities[note_index]) - 1}, should equal {len(s1) + len(s2) + len(s3) + len(s4) + len(s5)}"
+        f"""
+        DEBUG:\n
+        min: {min}
+        max: {max}
+        div1: {div1}
+        div2: {div2}
+        div3: {div3}
+        div4: {div4}
+        """
     )
-    print(f"mean: {mid}\nseg1: {seg1}\nseg2 {seg2}\nseg3 {seg3}\nseg4 {seg4}\n")
+
+    # TODO: this should just be a test case when
+    if len(similarities) - 1 != len(s1) + len(s2) + len(s3) + len(s4) + len(s5):
+        print(
+            "Bug alert. Length of similarities array does not equal sum of notes in all segments."
+        )
+        exit()
 
     full_output = True
     if full_output:
