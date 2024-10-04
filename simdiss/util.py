@@ -1,16 +1,5 @@
 import torch
 
-
-def row_means(tensor):
-    means = []
-
-    for row in tensor:
-        mean = torch.mean(row)
-        means.append(mean)
-
-    return means
-
-
 # the max value of a similarity tensor is always 1.0
 # this will skew subsequent calculations such as averages and other ranges.
 def unbiased_min_max(tensor, note_index) -> tuple[float, float]:

@@ -65,7 +65,7 @@ def calculate_divisions(min, max):
 # in the corpus. There are 5 segments from "least similar" to "most similar".
 # TODO: What should this function return for best usage with zk?
 def note_simdiss(similarities, title):
-    # segments to hold "least similar" to "most similar" notes.
+    # s for segments. For "least similar" to "most similar" notes.
     s1 = []
     s2 = []
     s3 = []
@@ -109,7 +109,7 @@ def note_simdiss(similarities, title):
         """
     )
 
-    # TODO: this should just be a test case when
+    # TODO: this should just be a test case.
     if len(similarities) - 1 != len(s1) + len(s2) + len(s3) + len(s4) + len(s5):
         print(
             "Bug alert. Length of similarities array does not equal sum of notes in all segments."

@@ -19,7 +19,7 @@ similarities = s.cos_sim_elementwise(embeddings)
 
 # Similarity
 # title = "The Academic Paper - Abstract"
-title = "delete chinese"
+title = "what defines the Zettelkasten system?"
 c.note_simdiss(similarities, title)
 
 # Clustering
