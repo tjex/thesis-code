@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # https://www.sbert.net/docs/quickstart.html
 
 # check if correct conda env is active first
