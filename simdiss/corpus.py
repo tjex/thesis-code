@@ -23,10 +23,12 @@ class Corpus:
         titles = [title["title"] for title in notes]
         paths = [path["path"] for path in notes]
 
-        titles_dict = {}
-        # create a dictionary for fast search
-        for i, title in enumerate(titles):
-            titles_dict[title] = i
+        paths_titles = []
+        for i in range(0, len(titles)):
+            title = titles[i]
+            path = paths[i]
+            combo = [title, path]
+            paths_titles.append(combo)
 
         cleaned_notes = [""] * len(dirty_notes)
 
@@ -36,10 +38,14 @@ class Corpus:
             note = re.sub(md_symbols_patt, "", note)
             cleaned_notes[i] = note
 
+        titles_dict = {}
+        # create a dictionary for fast search
+        for i, title in enumerate(titles):
+            titles_dict[title] = i
+
         cls.cleaned_notes = cleaned_notes
-        cls.titles = titles
+        cls.paths_titles = paths_titles
         cls.titles_dict = titles_dict
-        cls.paths = paths
 
     @classmethod
     def generate_embeddings(cls, model):
@@ -52,20 +58,10 @@ class Corpus:
     def embeddings(cls):
         return cls.corpus_embeddings
 
-    # Returns an array with all note titles
+    # Returns an array with all note paths and titles
     @classmethod
-    def note_titles(cls):
-        return cls.titles
-
-    # Return file paths notes
-    @classmethod
-    def note_paths(cls):
-        return cls.paths
-
-    # Returns a dictionary with form [title]: i
-    @classmethod
-    def note_titles_dict(cls):
-        return cls.titles_dict
+    def note_paths_titles(cls):
+        return cls.paths_titles
 
     # Lookup the index of a note by title
     @classmethod

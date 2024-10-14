@@ -95,8 +95,7 @@ def note_simdiss(similarities, title):
     s1, s2, s3, s4, s5 = [], [], [], [], []
 
     note_index = corpus.index_from_title(title)
-    note_titles = corpus.note_titles()
-    note_paths = corpus.note_paths()
+    paths_titles = corpus.paths_titles
     # reduce to a 1d array for simplified handling
     similarities = similarities[note_index]
 
@@ -105,9 +104,7 @@ def note_simdiss(similarities, title):
 
     for i, score in enumerate(similarities):
         if i != note_index:
-            t = note_titles[i]
-            p = note_paths[i]
-            element = [t, p]
+            element = paths_titles[i]
 
             if score <= div1:
                 # order: least similar to most similar
@@ -121,7 +118,8 @@ def note_simdiss(similarities, title):
             elif div4 < score:
                 s5.append(element)
 
-    build_json_file(title, note_paths[note_index], s1, s2, s3, s4, s5)
+    _, path = paths_titles[note_index]
+    build_json_file(title, path, s1, s2, s3, s4, s5)
 
 
 def build_json_file(note_title, note_path, s1, s2, s3, s4, s5):

@@ -8,6 +8,9 @@ import clustering as c
 import similarity as s
 import corpus as cor
 import numpy as np
+import sys
+
+title_input = sys.argv[1]
 
 # nltk.download("punkt")
 corpus = cor.Corpus
@@ -23,14 +26,4 @@ embeddings = np.load("simdiss/data/embeddings.npy")
 similarities = s.cos_sim_elementwise(embeddings)
 
 # Similarity
-# title = "The Academic Paper - Abstract"
-title = "what defines the Zettelkasten system?"
-c.note_simdiss(similarities, title)
-
-# Clustering
-# c.agglo_clustering(similarities, note_titles, 6)
-# print("---------------------------------")
-# print("---------------------------------")
-# c.agglo_clustering(dissimilarities, note_titles, 6)
-# print()
-# c.fast_clustering(embeddings, note_titles)
+c.note_simdiss(similarities, title_input)
