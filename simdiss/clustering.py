@@ -87,10 +87,6 @@ def print_simdiss_results(s1, s2, s3, s4, s5, titles_arr, note_index):
         print("\n", "\n".join([note for note in s5]))
 
 
-def init_json_file(title):
-    print(json.dumps([title, {"Least Similar": "poopy"}]))
-
-
 # Process a simdiss for a singular note against all other notes
 # in the corpus. There are 5 segments from "least similar" to "most similar".
 # TODO: What should this function return for best usage with zk?
@@ -115,39 +111,33 @@ def note_simdiss(similarities, title):
         if i != note_index:
             t = note_titles[i]
             p = note_paths[i]
-            s = round(similarities[i].item(), 2)
-            report = f"{t} ({str(s)})"
+            element = [t, p]
 
             if score <= div1:
-                s1.append(report)
+                # order: least similar to most similar
+                s1.append(element)
             elif div1 < score <= div2:
-                s2.append(report)
+                s2.append(element)
             elif div2 < score <= div3:
-                s3.append(report)
+                s3.append(element)
             elif div3 < score <= div4:
-                s4.append(report)
+                s4.append(element)
             elif div4 < score:
-                s5.append(report)
+                s5.append(element)
 
-    init_json_file(title)
+    build_json_file(title, note_index, s1, s2, s3, s4, s5)
 
-    print(
-        f"""
-        DEBUG:\n
-        min: {min}
-        max: {max}
-        div1: {div1}
-        div2: {div2}
-        div3: {div3}
-        div4: {div4}
-        """
-    )
 
-    # TODO: this should just be a test case.
-    if len(similarities) - 1 != len(s1) + len(s2) + len(s3) + len(s4) + len(s5):
-        print(
-            "Bug alert. Length of similarities array does not equal sum of notes in all segments."
-        )
-        exit()
+def build_json_file(note_title, note_path, s1, s2, s3, s4, s5):
+    json_data = {
+        "title": note_title,
+        "path": note_path,
+        "least_similar": [{"title": title, "path": path} for title, path in s1],
+        "somewhat_similar": [{"title": title, "path": path} for title, path in s2],
+        "moderately_similar": [{"title": title, "path": path} for title, path in s3],
+        "very_similar": [{"title": title, "path": path} for title, path in s4],
+        "most_similar": [{"title": title, "path": path} for title, path in s5],
+    }
 
-    # print_simdiss_results(s1, s2, s3, s4, s5, titles_arr, note_index)
+    json_output = json.dumps(json_data, indent=4)
+    print(json_output)
