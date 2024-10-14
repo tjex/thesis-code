@@ -92,11 +92,7 @@ def print_simdiss_results(s1, s2, s3, s4, s5, titles_arr, note_index):
 # TODO: What should this function return for best usage with zk?
 def note_simdiss(similarities, title):
     # s for segments. For "least similar" to "most similar" notes.
-    s1 = []
-    s2 = []
-    s3 = []
-    s4 = []
-    s5 = []
+    s1, s2, s3, s4, s5 = [], [], [], [], []
 
     note_index = corpus.index_from_title(title)
     note_titles = corpus.note_titles()
@@ -125,7 +121,7 @@ def note_simdiss(similarities, title):
             elif div4 < score:
                 s5.append(element)
 
-    build_json_file(title, note_index, s1, s2, s3, s4, s5)
+    build_json_file(title, note_paths[note_index], s1, s2, s3, s4, s5)
 
 
 def build_json_file(note_title, note_path, s1, s2, s3, s4, s5):
@@ -139,5 +135,6 @@ def build_json_file(note_title, note_path, s1, s2, s3, s4, s5):
         "most_similar": [{"title": title, "path": path} for title, path in s5],
     }
 
-    json_output = json.dumps(json_data, indent=4)
-    print(json_output)
+    # json_output = json.dumps(json_data, indent=4)
+    with open("simdiss/data/simdiss.json", "w") as file:
+        json.dump(json_data, file)

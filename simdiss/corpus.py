@@ -62,10 +62,10 @@ class Corpus:
     def note_paths(cls):
         return cls.paths
 
-    # # Returns a dictionary with form [title]: i
-    # @classmethod
-    # def note_titles_dict(cls):
-    #     return cls.titles_dict
+    # Returns a dictionary with form [title]: i
+    @classmethod
+    def note_titles_dict(cls):
+        return cls.titles_dict
 
     # Lookup the index of a note by title
     @classmethod
