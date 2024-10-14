@@ -9,8 +9,9 @@ md_link_patt = r"\[(.*?)\]\(.*?\)"
 # Corpus works with the corpus of note data provided by zk.
 class Corpus:
     @classmethod
-    def init(cls, path):
-        cls.note_data = path
+    def init(cls):
+        cls.note_data_dir = "simdiss/data"
+        cls.note_data = cls.note_data_dir + "/ps.json"
 
     @classmethod
     def prepare_corpus(cls):
@@ -19,11 +20,12 @@ class Corpus:
 
         # Extract desired fields from json
         dirty_notes = [note["body"] for note in notes]
-        titles_array = [title["title"] for title in notes]
+        titles = [title["title"] for title in notes]
+        paths = [path["path"] for path in notes]
 
         titles_dict = {}
         # create a dictionary for fast search
-        for i, title in enumerate(titles_array):
+        for i, title in enumerate(titles):
             titles_dict[title] = i
 
         cleaned_notes = [""] * len(dirty_notes)
@@ -35,8 +37,9 @@ class Corpus:
             cleaned_notes[i] = note
 
         cls.cleaned_notes = cleaned_notes
-        cls.titles_array = titles_array
+        cls.titles = titles
         cls.titles_dict = titles_dict
+        cls.paths = paths
 
     @classmethod
     def generate_embeddings(cls, model):
@@ -51,8 +54,13 @@ class Corpus:
 
     # Returns an array with all note titles
     @classmethod
-    def note_titles_array(cls):
-        return cls.titles_array
+    def note_titles(cls):
+        return cls.titles
+
+    # Return file paths notes
+    @classmethod
+    def note_paths(cls):
+        return cls.paths
 
     # Returns a dictionary with form [title]: i
     @classmethod

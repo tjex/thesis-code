@@ -7,20 +7,19 @@ from sentence_transformers import SentenceTransformer
 import clustering as c
 import similarity as s
 import corpus as cor
-import sys
+import numpy as np
 
 # nltk.download("punkt")
 corpus = cor.Corpus
 model = SentenceTransformer("all-mpnet-base-v2")
 
-
 # Source, process and generate necessary data.
-# NOTE: As these scripts are executed by main.go, paths need to be relative from
-# main.go, and not main.py!
-corpus.init("./simdiss/data/ps.json")
+corpus.init()
 corpus.prepare_corpus()
-corpus.generate_embeddings(model)
-embeddings = corpus.embeddings()
+# corpus.generate_embeddings(model)
+# embeddings = corpus.embeddings()
+# np.save("simdiss/data/embeddings", embeddings)
+embeddings = np.load("simdiss/data/embeddings.npy")
 similarities = s.cos_sim_elementwise(embeddings)
 
 # Similarity

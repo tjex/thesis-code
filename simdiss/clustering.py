@@ -2,6 +2,7 @@ from sklearn.cluster import AgglomerativeClustering
 from sentence_transformers import util
 import util as u
 import corpus as c
+import json
 
 # https://www.sbert.net/examples/applications/clustering/README.html
 
@@ -61,6 +62,35 @@ def calculate_divisions(min, max):
     return div1, div2, div3, div4
 
 
+def print_simdiss_results(s1, s2, s3, s4, s5, titles_arr, note_index):
+    full_output = True
+    if full_output:
+        print(f"Similarity relationships for, {titles_arr[note_index]}")
+        print("==============================")
+        print(f"Least similar, {len(s1)} notes:")
+        print("\n", "\n".join([note for note in s1]))
+        print()
+        print("==============================")
+        print(f"Slightly similar, {len(s2)} notes:")
+        print("\n", "\n".join([note for note in s2]))
+        print()
+        print("==============================")
+        print(f"Somewhat similar, {len(s3)} notes:")
+        print("\n", "\n".join([note for note in s3]))
+        print()
+        print("==============================")
+        print(f"Very similar, {len(s4)} notes:")
+        print("\n", "\n".join([note for note in s4]))
+        print()
+        print("==============================")
+        print(f"Most similar, {len(s5)} notes:")
+        print("\n", "\n".join([note for note in s5]))
+
+
+def init_json_file(title):
+    print(json.dumps([title, {"Least Similar": "poopy"}]))
+
+
 # Process a simdiss for a singular note against all other notes
 # in the corpus. There are 5 segments from "least similar" to "most similar".
 # TODO: What should this function return for best usage with zk?
@@ -73,7 +103,8 @@ def note_simdiss(similarities, title):
     s5 = []
 
     note_index = corpus.index_from_title(title)
-    titles_arr = corpus.note_titles_array()
+    note_titles = corpus.note_titles()
+    note_paths = corpus.note_paths()
     # reduce to a 1d array for simplified handling
     similarities = similarities[note_index]
 
@@ -82,7 +113,8 @@ def note_simdiss(similarities, title):
 
     for i, score in enumerate(similarities):
         if i != note_index:
-            t = titles_arr[i]
+            t = note_titles[i]
+            p = note_paths[i]
             s = round(similarities[i].item(), 2)
             report = f"{t} ({str(s)})"
 
@@ -96,6 +128,8 @@ def note_simdiss(similarities, title):
                 s4.append(report)
             elif div4 < score:
                 s5.append(report)
+
+    init_json_file(title)
 
     print(
         f"""
@@ -116,20 +150,4 @@ def note_simdiss(similarities, title):
         )
         exit()
 
-    full_output = True
-    if full_output:
-        print(f"Similarity relationships for, {titles_arr[note_index]}")
-        print(f"Least similar, {len(s1)} notes:")
-        print("\t", "\n\t".join([note for note in s1]))
-        print()
-        print(f"Slightly similar, {len(s2)} notes:")
-        print("\t", "\n\t".join([note for note in s2]))
-        print()
-        print(f"Somewhat similar, {len(s3)} notes:")
-        print("\t", "\n\t".join([note for note in s3]))
-        print()
-        print(f"Very similar, {len(s4)} notes:")
-        print("\t", "\n\t".join([note for note in s4]))
-        print()
-        print(f"Most similar, {len(s5)} notes:")
-        print("\t", "\n\t".join([note for note in s5]))
+    # print_simdiss_results(s1, s2, s3, s4, s5, titles_arr, note_index)
