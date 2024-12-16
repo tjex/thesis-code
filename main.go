@@ -7,7 +7,7 @@ import (
 
 func main() {
 
-	cmd := exec.Command("./simdiss/main.py", "what defines the Zettelkasten system?")
+	cmd := exec.Command("./simdiss/main.py", "C++ Evolving a useful language - Bjarne Stroustrup")
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Println(err)
