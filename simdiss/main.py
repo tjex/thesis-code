@@ -4,6 +4,7 @@
 
 # check if correct conda env is active first
 from sentence_transformers import SentenceTransformer
+import nltk
 import clustering as c
 import similarity as s
 import corpus as cor
@@ -12,7 +13,7 @@ import sys
 
 title_input = sys.argv[1]
 
-# nltk.download("punkt")
+nltk.download("punkt")
 corpus = cor.Corpus
 model = SentenceTransformer("all-mpnet-base-v2")
 
