@@ -134,5 +134,5 @@ def build_json_file(note_title, note_path, s1, s2, s3, s4, s5):
     }
 
     # json_output = json.dumps(json_data, indent=4)
-    with open("simdiss/data/simdiss.json", "w") as file:
+    with open("data/simdiss.json", "w") as file:
         json.dump(json_data, file)

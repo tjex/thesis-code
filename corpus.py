@@ -10,7 +10,7 @@ md_link_patt = r"\[(.*?)\]\(.*?\)"
 class Corpus:
     @classmethod
     def init(cls):
-        cls.note_data_dir = "simdiss/data"
+        cls.note_data_dir = "data"
         cls.note_data = cls.note_data_dir + "/ps.json"
 
     @classmethod
@@ -34,7 +34,11 @@ class Corpus:
 
         for i, note in enumerate(dirty_notes):
             note = note.replace("\n", " ")  # flatten for regex ease of use
-            note = re.sub(md_link_patt, r"\1", note)
+            # # NOTE: It may be better
+            # to keep the links in the document, as links to the same document
+            # should mean that relationships exist (as they've been defined by
+            # the user themselves in the first place)
+            # note = re.sub(md_link_patt, r"\1", note) 
             note = re.sub(md_symbols_patt, "", note)
             cleaned_notes[i] = note
 

@@ -20,10 +20,10 @@ model = SentenceTransformer("all-mpnet-base-v2")
 # Source, process and generate necessary data.
 corpus.init()
 corpus.prepare_corpus()
-# corpus.generate_embeddings(model)
-# embeddings = corpus.embeddings()
-# np.save("simdiss/data/embeddings", embeddings)
-embeddings = np.load("simdiss/data/embeddings.npy")
+corpus.generate_embeddings(model)
+embeddings = corpus.embeddings()
+np.save("data/embeddings", embeddings)
+embeddings = np.load("data/embeddings.npy")
 similarities = s.cos_sim_elementwise(embeddings)
 
 # Similarity
