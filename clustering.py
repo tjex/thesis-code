@@ -62,31 +62,6 @@ def calculate_divisions(min, max):
     return div1, div2, div3, div4
 
 
-def print_simdiss_results(s1, s2, s3, s4, s5, titles_arr, note_index):
-    full_output = True
-    if full_output:
-        print(f"Similarity relationships for, {titles_arr[note_index]}")
-        print("==============================")
-        print(f"Least similar, {len(s1)} notes:")
-        print("\n", "\n".join([note for note in s1]))
-        print()
-        print("==============================")
-        print(f"Slightly similar, {len(s2)} notes:")
-        print("\n", "\n".join([note for note in s2]))
-        print()
-        print("==============================")
-        print(f"Somewhat similar, {len(s3)} notes:")
-        print("\n", "\n".join([note for note in s3]))
-        print()
-        print("==============================")
-        print(f"Very similar, {len(s4)} notes:")
-        print("\n", "\n".join([note for note in s4]))
-        print()
-        print("==============================")
-        print(f"Most similar, {len(s5)} notes:")
-        print("\n", "\n".join([note for note in s5]))
-
-
 # Process a simdiss for a singular note against all other notes
 # in the corpus. There are 5 segments from "least similar" to "most similar".
 # TODO: What should this function return for best usage with zk?

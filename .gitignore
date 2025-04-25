@@ -8,6 +8,7 @@ __pycache__/
 *$py.class
 
 # embeddings
+*.pt
 *.npy
 
 # C extensions

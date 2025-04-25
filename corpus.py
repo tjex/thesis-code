@@ -1,13 +1,17 @@
+import nltk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+import string
 import json, os
 import regex as re
 
-
-md_symbols_patt = r"(#)|(-)|(>)|(\*)|(\")"
+md_symbols_patt = r"(#)|(>)|(\*)"
 md_link_patt = r"\[(.*?)\]\(.*?\)"
 
 
 # Corpus works with the corpus of note data provided by zk.
 class Corpus:
+
     @classmethod
     def init(cls):
         cls.note_data_dir = "data"
@@ -16,6 +20,10 @@ class Corpus:
 
     @classmethod
     def clean_notes(cls):
+        nltk.download("punkt")
+        nltk.download("punkt_tab")
+        nltk.download("stopwords")
+
         try:
             with open(cls.note_data) as f:
                 notes = json.load(f)
@@ -23,24 +31,21 @@ class Corpus:
             print(f"Could not open note data at: {cls.note_data}")
             exit(1)
 
-        # Extract desired fields from json
         dirty_notes = [note["body"] for note in notes]
+        stop_words = set(stopwords.words("english"))
 
-        cleaned_notes = [""] * len(dirty_notes)
+        cleaned_notes = []
 
-        # WARN: USE NLTK PUNK HERE. THATS WHY YOU DOWNLOADED IT???
-        for i, note in enumerate(dirty_notes):
-            note = note.replace("\n", " ")  # flatten for regex ease of use
-            # # NOTE: It may be better
-            # to keep the links in the document, as links to the same document
-            # should mean that relationships exist (as they've been defined by
-            # the user themselves in the first place)
-            # note = re.sub(md_link_patt, r"\1", note) 
-            note = re.sub(md_symbols_patt, "", note)
-            cleaned_notes[i] = note
+        for note in dirty_notes:
+            tokens = word_tokenize(note.lower())
+            tokens = [
+                t for t in tokens
+                if t not in string.punctuation and t not in stop_words
+            ]
+
+            cleaned_notes.append(" ".join(tokens))
 
         cls.cleaned_notes = cleaned_notes
-
 
     @classmethod
     def build_reference_data(cls):
@@ -57,7 +62,6 @@ class Corpus:
             path = paths[i]
             combo = [title, path]
             paths_titles.append(combo)
-
 
         titles_dict = {}
         # create a dictionary for fast search
