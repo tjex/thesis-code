@@ -2,54 +2,63 @@
 
 # https://www.sbert.net/docs/quickstart.html
 
-# check if correct conda env is active first
 from sentence_transformers import SentenceTransformer
 import clustering as c
 import similarity as s
 import corpus as cor
 import numpy as np
-import sys
 import torch
+import argparse
 
-stdin = sys.argv[:]
 
-if len(stdin) < 2:
-    print("No command provided.")
-    print("Accepted commands:\n\ttrain\n\tsimdiss <note title>")
-    exit(1)
+def main():
+    parser = argparse.ArgumentParser()
+    subparsers = parser.add_subparsers(dest="command", required=True)
 
-corpus = cor.Corpus
-model = SentenceTransformer("all-mpnet-base-v2")
+    subparsers.add_parser("train",
+                          help="Generate embeddings and similarity matrix")
+    simdiss_parser = subparsers.add_parser(
+        "simdiss", help="Compare note similarity against corpus")
+    simdiss_parser.add_argument("title", help="Title of note to compare")
 
-similarities = torch.empty(0)
-embeddings = np.array([])
+    args = parser.parse_args()
 
-# Set variables within class
-corpus.init()
+    corpus = cor.Corpus
+    model = SentenceTransformer("all-mpnet-base-v2")
 
-if stdin[1] == "train":
+    similarities = torch.empty(0)
+    embeddings = np.array([])
 
-    print("Preparing corpus...")
-    corpus.clean_notes()
+    # Set variables within class
+    corpus.init()
 
-    print("Generating embeddings...")
-    corpus.generate_embeddings(model)
-    embeddings = corpus.embeddings()
+    if args.command == "train":
 
-    print("Saving embeddings...")
-    np.save("data/embeddings", embeddings)
+        print("Preparing corpus...")
+        corpus.clean_notes()
 
-    print("Calculating similarity scores (cosine)...")
-    similarities = s.cos_sim_elementwise(embeddings)
-    torch.save(similarities, "data/similarities.pt")
+        print("Generating embeddings...")
+        corpus.generate_embeddings(model)
+        embeddings = corpus.embeddings()
 
-elif stdin[1] == "simdiss":
-    title_input = stdin[2]
-    # For title and note index lookup against user input.
-    corpus.build_reference_data()
+        print("Saving embeddings...")
+        np.save("data/embeddings", embeddings)
 
-    print("Loading embeddings...")
-    similarities = torch.load("data/similarities.pt")
+        print("Calculating similarity scores (cosine)...")
+        similarities = s.cos_sim_elementwise(embeddings)
+        torch.save(similarities, "data/similarities.pt")
 
-    print(f"Calculating similarities against: {title_input}")
-    c.note_simdiss(similarities, title_input)
+    elif args.command == "simdiss":
+        title_input = args.title
+        # For title and note index lookup against user input.
+        corpus.build_reference_data()
+
+        print("Loading embeddings...")
+        similarities = torch.load("data/similarities.pt")
+
+        print(f"Calculating similarities against: {title_input}")
+        c.note_simdiss(similarities, title_input)
+
+
+if __name__ == "__main__":
+    main()

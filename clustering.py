@@ -11,7 +11,8 @@ corpus = c.Corpus
 
 # Agglomerative clustering. Returns clusters.
 def agglo_clustering(similarities, note_titles, nc):
-    clustering_model = AgglomerativeClustering(n_clusters=nc, distance_threshold=None)
+    clustering_model = AgglomerativeClustering(n_clusters=nc,
+                                               distance_threshold=None)
     clustering_model.fit(similarities)
     cluster_assignment = clustering_model.labels_
 
@@ -33,9 +34,9 @@ def fast_clustering(similarities, note_titles):
     # Two parameters to tune:
     # min_cluster_size: Only consider cluster that have at least 25 elements
     # threshold: Consider sentence pairs with a cosine-similarity larger than threshold as similar
-    clusters = util.community_detection(
-        similarities, min_community_size=3, threshold=0.3
-    )
+    clusters = util.community_detection(similarities,
+                                        min_community_size=3,
+                                        threshold=0.3)
     print(clusters)
 
     # Print for all clusters the top 3 and bottom 3 elements
@@ -69,7 +70,15 @@ def note_simdiss(similarities, title):
     # s for segments. For "least similar" to "most similar" notes.
     s1, s2, s3, s4, s5 = [], [], [], [], []
 
-    note_index = corpus.index_from_title(title)
+    try:
+        note_index = corpus.index_from_title(title)
+    except:
+        print(f"Error retrieving index by title: {title}")
+        print(
+            f"The note either does not exist, or the note data does not contain this note."
+        )
+        exit(1)
+
     paths_titles = corpus.paths_titles
     # reduce to a 1d array for simplified handling
     similarities = similarities[note_index]
@@ -99,17 +108,34 @@ def note_simdiss(similarities, title):
 
 def build_json_file(note_title, note_path, s1, s2, s3, s4, s5):
     json_data = {
-        "title": note_title,
-        "path": note_path,
-        "least_similar": [{"title": title, "path": path} for title, path in s1],
-        "somewhat_similar": [{"title": title, "path": path} for title, path in s2],
-        "moderately_similar": [{"title": title, "path": path} for title, path in s3],
-        "very_similar": [{"title": title, "path": path} for title, path in s4],
-        "most_similar": [{"title": title, "path": path} for title, path in s5],
+        "title":
+        note_title,
+        "path":
+        note_path,
+        "least_similar": [{
+            "title": title,
+            "path": path
+        } for title, path in s1],
+        "somewhat_similar": [{
+            "title": title,
+            "path": path
+        } for title, path in s2],
+        "moderately_similar": [{
+            "title": title,
+            "path": path
+        } for title, path in s3],
+        "very_similar": [{
+            "title": title,
+            "path": path
+        } for title, path in s4],
+        "most_similar": [{
+            "title": title,
+            "path": path
+        } for title, path in s5],
     }
 
     # json_output = json.dumps(json_data, indent=4)
-    try: 
+    try:
         with open(corpus.simdiss_results, "w") as file:
             json.dump(json_data, file)
     except:

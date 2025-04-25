@@ -1,12 +1,8 @@
 import nltk
-from nltk.tokenize import word_tokenize
+from nltk.tokenize import sent_tokenize
 from nltk.corpus import stopwords
 import string
 import json, os
-import regex as re
-
-md_symbols_patt = r"(#)|(>)|(\*)"
-md_link_patt = r"\[(.*?)\]\(.*?\)"
 
 
 # Corpus works with the corpus of note data provided by zk.
@@ -31,13 +27,14 @@ class Corpus:
             print(f"Could not open note data at: {cls.note_data}")
             exit(1)
 
+        # taking the note body, and now raw, means frontmatter is not included.
         dirty_notes = [note["body"] for note in notes]
         stop_words = set(stopwords.words("english"))
 
         cleaned_notes = []
 
         for note in dirty_notes:
-            tokens = word_tokenize(note.lower())
+            tokens = sent_tokenize(note.lower())
             tokens = [
                 t for t in tokens
                 if t not in string.punctuation and t not in stop_words
