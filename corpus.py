@@ -1,4 +1,4 @@
-import json
+import json, os
 import regex as re
 
 
@@ -11,27 +11,24 @@ class Corpus:
     @classmethod
     def init(cls):
         cls.note_data_dir = "data"
-        cls.note_data = cls.note_data_dir + "/ps.json"
+        cls.note_data = cls.note_data_dir + "/zk.json"
+        cls.simdiss_results = os.path.join(cls.note_data_dir, "simdiss.json")
 
     @classmethod
-    def prepare_corpus(cls):
-        with open(cls.note_data) as f:
-            notes = json.load(f)
+    def clean_notes(cls):
+        try:
+            with open(cls.note_data) as f:
+                notes = json.load(f)
+        except:
+            print(f"Could not open note data at: {cls.note_data}")
+            exit(1)
 
         # Extract desired fields from json
         dirty_notes = [note["body"] for note in notes]
-        titles = [title["title"] for title in notes]
-        paths = [path["path"] for path in notes]
-
-        paths_titles = []
-        for i in range(0, len(titles)):
-            title = titles[i]
-            path = paths[i]
-            combo = [title, path]
-            paths_titles.append(combo)
 
         cleaned_notes = [""] * len(dirty_notes)
 
+        # WARN: USE NLTK PUNK HERE. THATS WHY YOU DOWNLOADED IT???
         for i, note in enumerate(dirty_notes):
             note = note.replace("\n", " ")  # flatten for regex ease of use
             # # NOTE: It may be better
@@ -42,12 +39,31 @@ class Corpus:
             note = re.sub(md_symbols_patt, "", note)
             cleaned_notes[i] = note
 
+        cls.cleaned_notes = cleaned_notes
+
+
+    @classmethod
+    def build_reference_data(cls):
+        with open(cls.note_data) as f:
+            notes = json.load(f)
+
+        # Extract desired fields from json
+        titles = [title["title"] for title in notes]
+        paths = [path["path"] for path in notes]
+
+        paths_titles = []
+        for i in range(0, len(titles)):
+            title = titles[i]
+            path = paths[i]
+            combo = [title, path]
+            paths_titles.append(combo)
+
+
         titles_dict = {}
         # create a dictionary for fast search
         for i, title in enumerate(titles):
             titles_dict[title] = i
 
-        cls.cleaned_notes = cleaned_notes
         cls.paths_titles = paths_titles
         cls.titles_dict = titles_dict
 

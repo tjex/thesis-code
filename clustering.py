@@ -134,5 +134,10 @@ def build_json_file(note_title, note_path, s1, s2, s3, s4, s5):
     }
 
     # json_output = json.dumps(json_data, indent=4)
-    with open("data/simdiss.json", "w") as file:
-        json.dump(json_data, file)
+    try: 
+        with open(corpus.simdiss_results, "w") as file:
+            json.dump(json_data, file)
+    except:
+        print(f"Could not write file {corpus.simdiss_results}")
+    else:
+        print(f"Results saved to {corpus.simdiss_results}")
