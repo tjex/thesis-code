@@ -3,7 +3,6 @@
   "path": "x5cw.md",
   "least_similar": [
     { "title": "BitTorrent tracker", "path": "g/dx1o.md" },
-    { "title": "CRDTs for Mortals (Offline First Apps)", "path": "r/y9gj.md" },
     {
       "title": "China's billionairs looking to move their cash, and themselves, out",
       "path": "r/69d3.md"
@@ -21,6 +20,7 @@
       "title": "Decentralisation: A multidisciplinary perspective",
       "path": "r/muqo.md"
     },
+    { "title": "Deutsche Telekom", "path": "g/vjw1.md" },
     {
       "title": "Freakonomics Radio 573 - Can academic fraud be stopped?",
       "path": "r/95tc.md"
@@ -32,15 +32,10 @@
     { "title": "How Tor Works", "path": "r/d5ae.md" },
     { "title": "HyperNormalisation", "path": "r/q02g.md" },
     { "title": "Lara in quicksand", "path": "5den.md" },
-    { "title": "Last Day at Disney Land", "path": "x99b.md" },
     { "title": "Linux Transition", "path": "trg2.md" },
+    { "title": "LoRa", "path": "g/0cbi.md" },
     { "title": "LoRaWan", "path": "g/bosa.md" },
-    {
-      "title": "Long term wealth distribution is determined by the nature of transactions",
-      "path": "f2cf.md"
-    },
     { "title": "Monetary Policy", "path": "g/fhjh.md" },
-    { "title": "Pomodoro Technique", "path": "g/ke7o.md" },
     {
       "title": "Principles for navigating big debt crises",
       "path": "r/s16z.md"
@@ -86,7 +81,6 @@
       "path": "m3e5.md"
     },
     { "title": "inflation", "path": "g/20fl.md" },
-    { "title": "moonlander diary", "path": "7z7q.md" },
     { "title": "noise pollution", "path": "g/s68d.md" },
     {
       "title": "positive memory bias can lead to 'toxic nostalgia'",
@@ -103,7 +97,6 @@
       "title": "windows aren't transparent in your metaphorical world?",
       "path": "6cfa.md"
     },
-    { "title": "you don't need luck, luck needs you", "path": "b7mo.md" },
     { "title": "zombie-ant fungus", "path": "g/4ubu.md" }
   ],
   "somewhat_similar": [
@@ -133,16 +126,7 @@
       "title": "Are we more connected through wires than through spirit?",
       "path": "cryw.md"
     },
-    {
-      "title": "Automated Trouble: The Role of Algorithmic Selection in Harms on Social Media Platforms",
-      "path": "r/cd8s.md"
-    },
-    {
-      "title": "BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding",
-      "path": "r/5gf1.md"
-    },
-    { "title": "Cambridge Analytica Scandal", "path": "g/a1up.md" },
-    { "title": "Chokepoint Capitalism", "path": "r/jqzb.md" },
+    { "title": "CRDTs for Mortals (Offline First Apps)", "path": "r/y9gj.md" },
     { "title": "Container Deployment", "path": "g/9p05.md" },
     {
       "title": "Conversations - Love and family and Asperger's",
@@ -154,12 +138,6 @@
       "title": "Deep Questions Ep. 285 - The Productivity Paradox",
       "path": "r/lw3j.md"
     },
-    { "title": "Deutsche Telekom", "path": "g/vjw1.md" },
-    { "title": "Developing Platform Economies", "path": "r/cple.md" },
-    {
-      "title": "Digital Ventriloquism - Giving Voice to Everyday Objects",
-      "path": "r/i6x7.md"
-    },
     { "title": "Evergreen Note", "path": "g/nw1n.md" },
     { "title": "Farvel.space", "path": "g/gdwm.md" },
     {
@@ -170,16 +148,7 @@
       "title": "Freakonomics Radio 574 - A low moment in higher education",
       "path": "r/yxfw.md"
     },
-    {
-      "title": "Freakonomics Radio 602 - Is screen time as poisonous as we think?",
-      "path": "r/0dao.md"
-    },
-    { "title": "GTD method", "path": "g/bwsu.md" },
     { "title": "Harry Halpin", "path": "g/tnyw.md" },
-    {
-      "title": "Having faith in yourself when learning difficult things is key",
-      "path": "b805.md"
-    },
     { "title": "Helium Network", "path": "g/mouy.md" },
     { "title": "How The Economic Machine Works", "path": "r/6g7y.md" },
     { "title": "How To Start Writing (Academic)", "path": "4zyz.md" },
@@ -201,26 +170,26 @@
       "title": "Internet search results could be increasing your carbon emissions",
       "path": "r/b8oh.md"
     },
+    {
+      "title": "Introduction to Algorithms (Third Edition)",
+      "path": "r/otfa.md"
+    },
     { "title": "Kariesa swimming", "path": "rym5.md" },
-    { "title": "LoRa", "path": "g/0cbi.md" },
+    { "title": "Last Day at Disney Land", "path": "x99b.md" },
     { "title": "Loneliness fuels overconsumption", "path": "5n1d.md" },
+    {
+      "title": "Long term wealth distribution is determined by the nature of transactions",
+      "path": "f2cf.md"
+    },
     {
       "title": "Luck is what happens when preparation meets opportunity",
       "path": "1ifd.md"
     },
-    { "title": "Luke Smith", "path": "g/xk9u.md" },
     { "title": "Meditation - An indepth guide", "path": "r/o7pf.md" },
-    { "title": "Mental Squeeze Point", "path": "4yee.md" },
     { "title": "Multiple-Trace Theory (Memory Model)", "path": "g/82ot.md" },
     { "title": "NP-complete", "path": "g/f5vc.md" },
     { "title": "Necker cube", "path": "g/kmrr.md" },
-    { "title": "Next Generation Internet Initiative", "path": "g/iryf.md" },
-    {
-      "title": "Open Source Software Development: Communities\u2019 Impact on Public Good",
-      "path": "r/8mzv.md"
-    },
-    { "title": "OpenAI", "path": "g/t5vn.md" },
-    { "title": "Quantified Self to the Extreme", "path": "r/khzz.md" },
+    { "title": "Pomodoro Technique", "path": "g/ke7o.md" },
     { "title": "RFC - Software Design Process", "path": "r/05xe.md" },
     {
       "title": "STT E12 - How writing a computer game got me jobs at Amazon and Google",
@@ -230,14 +199,8 @@
       "title": "STT E16 - Crazy Talk - My prediction for Big Tech and Biotech in the near future",
       "path": "r/wdid.md"
     },
-    {
-      "title": "STT E7 - The largest company in the world should have you a little worried right now",
-      "path": "r/8adr.md"
-    },
-    { "title": "Sam Sarris", "path": "g/8pfm.md" },
-    { "title": "Sapians", "path": "r/yvrs.md" },
+    { "title": "Snowden, Edward - Permanent Record", "path": "r/dybl.md" },
     { "title": "Spotify", "path": "g/w1ok.md" },
-    { "title": "Start With Creation", "path": "r/q3ad.md" },
     { "title": "Steve Yegge", "path": "g/t9nq.md" },
     { "title": "StormTrooper Mangled Baby", "path": "sq1j.md" },
     { "title": "Strength in Stillness", "path": "r/yfed.md" },
@@ -246,18 +209,12 @@
     { "title": "TOR", "path": "g/xo0i.md" },
     { "title": "Taoism", "path": "g/pfg0.md" },
     { "title": "Techniques for Precise Academic Writing", "path": "r/5nqy.md" },
-    { "title": "Technological Determinism", "path": "g/gh6v.md" },
     { "title": "The Academic Paper - Abstract", "path": "88tt.md" },
     { "title": "The Academic Paper - Discussion", "path": "55oj.md" },
     { "title": "The Academic Paper - Main Content", "path": "r/ky6u.md" },
     { "title": "The Academic Paper - Related Work", "path": "r/bxqc.md" },
     { "title": "The Century of the Self", "path": "9ggq.md" },
-    {
-      "title": "The Cloud Is Material: On the Environmental Impacts of Computation and Data Storage",
-      "path": "r/pdrh.md"
-    },
     { "title": "The GAN ML Model", "path": "g/x92c.md" },
-    { "title": "The Iceberg Yes", "path": "rh8c.md" },
     { "title": "The Machine Mind", "path": "l504.md" },
     {
       "title": "The Meaning of Life - A very short introduction",
@@ -271,10 +228,6 @@
       "path": "r/nagn.md"
     },
     { "title": "The mere-exposure effect", "path": "5zlo.md" },
-    {
-      "title": "Tools for Reordering: Commonplacing and the Space of Words in Linnaeus's Philosophia Botanica",
-      "path": "r/y30h.md"
-    },
     { "title": "Triangle of Strangeness", "path": "k4dl.md" },
     {
       "title": "Trust in Open Source Software Development Communities: A Comprehensive Analysis",
@@ -284,20 +237,7 @@
     { "title": "Virtual Machines", "path": "g/ekyq.md" },
     { "title": "WASM", "path": "g/vat2.md" },
     { "title": "WW2", "path": "g/svql.md" },
-    { "title": "Wavepaths", "path": "g/v9xu.md" },
-    {
-      "title": "What and where is the Internet? (Re)defining Internet histories",
-      "path": "r/c70c.md"
-    },
-    {
-      "title": "Why Open Source Misses the Point of Free Software - GNU Project - Free Software Foundation",
-      "path": "r/p6ou.md"
-    },
     { "title": "Wormbs Negotiating the Radio Spectrum", "path": "r/capl.md" },
-    {
-      "title": "a certain way of thinking cannot be broken with, if we are not even aware that it is a certain way of thinking",
-      "path": "1epq.md"
-    },
     {
       "title": "access to information does not correlate to happiness",
       "path": "b59k.md"
@@ -316,10 +256,6 @@
       "path": "e8zq.md"
     },
     { "title": "butterfly effect", "path": "g/qekw.md" },
-    {
-      "title": "chaos is constant, order is momentary and constantly renewed by the medium of the mind",
-      "path": "iqip.md"
-    },
     { "title": "chickenization", "path": "g/1uxv.md" },
     {
       "title": "chokepoint capitalist companies are like water spiders",
@@ -330,20 +266,11 @@
       "title": "climate change is a great use case for machine learning",
       "path": "sfaj.md"
     },
-    {
-      "title": "cognitive shifting has a negative effect on forming new memories",
-      "path": "95kv.md"
-    },
     { "title": "common prosperity", "path": "g/6tak.md" },
-    { "title": "commons-based production", "path": "2o9k.md" },
     { "title": "copyright", "path": "g/sird.md" },
     { "title": "criticisms of industrialisation", "path": "403a.md" },
     { "title": "cryptocurrency", "path": "g/d1tw.md" },
     { "title": "data lineage", "path": "g/6bcc.md" },
-    {
-      "title": "deliberate mindfulness can disrupt flow state",
-      "path": "ym4k.md"
-    },
     {
       "title": "difference between interpreting music and interpreting visual art",
       "path": "ggoo.md"
@@ -352,7 +279,6 @@
       "title": "distinction between invention, innovation and diffusion",
       "path": "9qxj.md"
     },
-    { "title": "dojo guru", "path": "xwau.md" },
     { "title": "dreams and stories", "path": "i/6yox.md" },
     { "title": "economy", "path": "i/14kd.md" },
     { "title": "fediverse", "path": "g/wc0q.md" },
@@ -371,11 +297,6 @@
     { "title": "how to communicate an API", "path": "r/gn3t.md" },
     { "title": "innovator's dilemma", "path": "g/xero.md" },
     { "title": "interactive fiber optic cable map", "path": "jao5.md" },
-    { "title": "intuition is an unconscious intelligence", "path": "0ajm.md" },
-    {
-      "title": "iterative success leads to greater success",
-      "path": "w8dr.md"
-    },
     {
       "title": "large companies innovate by buying other companies",
       "path": "2khf.md"
@@ -386,6 +307,7 @@
       "path": "cq5c.md"
     },
     { "title": "metasploit", "path": "g/2hui.md" },
+    { "title": "moonlander diary", "path": "7z7q.md" },
     { "title": "multitasking", "path": "g/2gu3.md" },
     { "title": "need-to-know", "path": "g/lpj0.md" },
     { "title": "network effect", "path": "g/j3kb.md" },
@@ -399,25 +321,18 @@
       "title": "purposes are deduced from behaviour, not from rhetoric or stated goals",
       "path": "ixf2.md"
     },
-    {
-      "title": "reduce cognitive overhead to increase cognitive freedom",
-      "path": "0yot.md"
-    },
-    { "title": "religion and spirituality", "path": "i/tu2b.md" },
-    { "title": "reverse centaur", "path": "g/j9vo.md" },
+    { "title": "quest for convenience", "path": "sg6k.md" },
     {
       "title": "rhythmic movement helps to narrow mental focus",
       "path": "w1tc.md"
     },
     { "title": "scroll up or drag down", "path": "uyxy.md" },
     { "title": "second law of software dynamics", "path": "bvko.md" },
-    { "title": "small scale and large scale technology", "path": "yadx.md" },
     { "title": "social media", "path": "g/ymuk.md" },
     {
       "title": "social media platforms insist on annihilating our personal experience",
       "path": "yys3.md"
     },
-    { "title": "sociology", "path": "i/nhh1.md" },
     { "title": "software engineering strategy", "path": "qgv0.md" },
     { "title": "technology is intertwined with politics", "path": "6ony.md" },
     {
@@ -431,12 +346,10 @@
     { "title": "terminal vs gui", "path": "1kcj.md" },
     { "title": "the \"Elsagate\" controversy", "path": "z391.md" },
     { "title": "the PageRank algorithm and paper", "path": "r/kt1y.md" },
-    { "title": "the brain is not a computer", "path": "vupk.md" },
     {
       "title": "the efficacy of open source stems from the problems of others",
       "path": "076k.md"
     },
-    { "title": "the hacker mindset", "path": "xm6y.md" },
     { "title": "the question \"why are we here?\"", "path": "4pzs.md" },
     {
       "title": "think about how to have a good life, not the good life",
@@ -449,19 +362,11 @@
     { "title": "untitled", "path": "p4tt.md" },
     { "title": "war of the cyber dynasties", "path": "8dbw.md" },
     {
-      "title": "we have a very permeable resistance to accepting things that resemble ourselves",
-      "path": "vbvx.md"
-    },
-    {
-      "title": "we seek to conform and to reduce uncertainty",
-      "path": "4ze0.md"
-    },
-    {
       "title": "we're currently in a system of fudamislm, not capitalism",
       "path": "yoqs.md"
     },
     { "title": "what data engineers do", "path": "j5la.md" },
-    { "title": "what is knowledge?", "path": "kd0z.md" },
+    { "title": "what drives economic growth?", "path": "i2ov.md" },
     { "title": "what makes for an effective team?", "path": "vld7.md" },
     {
       "title": "what makes something utopian, is not what happens when it works, it's what happens when it fails",
@@ -469,17 +374,13 @@
     },
     { "title": "when did boredom cease to be an option?", "path": "mhal.md" },
     {
-      "title": "why brainstorming can help uncover strong ideas",
-      "path": "m6hc.md"
-    },
-    {
       "title": "why life experience is valuable to an employer",
       "path": "rngf.md"
     },
     { "title": "why story is used in religion", "path": "itb2.md" },
-    { "title": "wiby.me", "path": "g/38z6.md" },
     { "title": "work and productivity", "path": "i/0zyj.md" },
-    { "title": "writer's block", "path": "g/k0e3.md" }
+    { "title": "writer's block", "path": "g/k0e3.md" },
+    { "title": "you don't need luck, luck needs you", "path": "b7mo.md" }
   ],
   "moderately_similar": [
     {
@@ -534,17 +435,22 @@
       "path": "r/iibd.md"
     },
     {
-      "title": "Automation of thought processes can have a negative impact",
-      "path": "m55t.md"
+      "title": "Automated Trouble: The Role of Algorithmic Selection in Harms on Social Media Platforms",
+      "path": "r/cd8s.md"
     },
     {
       "title": "Autonomous Creation of Musical Pattern from Types and Models in Live Coding",
       "path": "r/ci1d.md"
     },
     {
+      "title": "BERT - Pre-training of Deep Bidirectional Transformers for Language Understanding",
+      "path": "r/5gf1.md"
+    },
+    {
       "title": "C++ Evolving a useful language - Bjarne Stroustrup",
       "path": "r/9dpp.md"
     },
+    { "title": "Cambridge Analytica Scandal", "path": "g/a1up.md" },
     {
       "title": "Can't Get You Out of My Head - Part 3 - Adam Curtis",
       "path": "r/trcq.md"
@@ -553,16 +459,17 @@
       "title": "Capitalism revolves around the abstraction of time, and is mediated by money",
       "path": "hood.md"
     },
+    { "title": "Chokepoint Capitalism", "path": "r/jqzb.md" },
     { "title": "Coding Democracy", "path": "r/tvng.md" },
-    { "title": "Communicating with Slip Boxes", "path": "r/dueb.md" },
-    {
-      "title": "Connectionism and Cognitive Architecture - A critical analysis",
-      "path": "r/61ts.md"
-    },
+    { "title": "Developing Platform Economies", "path": "r/cple.md" },
     { "title": "Diataxis Documentation Framework", "path": "g/ohxu.md" },
     {
       "title": "Digital Art: When Artistic and Cultural Muse Merges with Computer Technology",
       "path": "r/m8i3.md"
+    },
+    {
+      "title": "Digital Ventriloquism - Giving Voice to Everyday Objects",
+      "path": "r/i6x7.md"
     },
     { "title": "Dreams of Dali", "path": "ear5.md" },
     {
@@ -581,15 +488,20 @@
       "title": "Freakonomics Radio 601 - Multitasking Doesn't Work. So Why Do We Keep On Trying?",
       "path": "r/vqrc.md"
     },
+    {
+      "title": "Freakonomics Radio 602 - Is screen time as poisonous as we think?",
+      "path": "r/0dao.md"
+    },
     { "title": "From Utopia to Practice and Back", "path": "r/p792.md" },
     { "title": "GATO - DeepMind Generalist AI", "path": "g/o5we.md" },
     { "title": "GRID system for Zettelkasten organisation", "path": "ocul.md" },
+    { "title": "GTD method", "path": "g/bwsu.md" },
     { "title": "Gabriela Coleman", "path": "g/l1zb.md" },
-    { "title": "How To Read Papers Effectively", "path": "cyp8.md" },
     {
-      "title": "How do people get new ideas? - Isaac Asimov",
-      "path": "r/urji.md"
+      "title": "Having faith in yourself when learning difficult things is key",
+      "path": "b805.md"
     },
+    { "title": "How To Read Papers Effectively", "path": "cyp8.md" },
     { "title": "How much GUI is too much GUI?", "path": "3dqf.md" },
     { "title": "How to Take Smart Notes", "path": "r/kbxy.md" },
     {
@@ -599,10 +511,6 @@
     { "title": "Implementing Luhmens Zettelkasten", "path": "3iwt.md" },
     { "title": "Inspiration Generator", "path": "txj0.md" },
     { "title": "Interactive Robotic Worm", "path": "oaon.md" },
-    {
-      "title": "Introduction to Algorithms (Third Edition)",
-      "path": "r/otfa.md"
-    },
     { "title": "IoT", "path": "g/4izc.md" },
     {
       "title": "Is our ability to understand and create systems by will, a defining factor of being human?",
@@ -622,7 +530,9 @@
       "path": "wtnm.md"
     },
     { "title": "Loab, the woman haunting the internet", "path": "ty8b.md" },
+    { "title": "Luke Smith", "path": "g/xk9u.md" },
     { "title": "ML tools for Zettelkasten workflows", "path": "h8z0.md" },
+    { "title": "Mental Squeeze Point", "path": "4yee.md" },
     {
       "title": "My Voice Will Go with You - The Teachings of Milton Erickson",
       "path": "r/llf5.md"
@@ -637,12 +547,14 @@
       "path": "r/96rm.md"
     },
     { "title": "New Dark Age - James Bridle", "path": "r/7gt0.md" },
-    {
-      "title": "Niklas Luhmann\u2019s Card Index - Thinking Tool, Communication Partner, Publication Machine",
-      "path": "r/hptn.md"
-    },
+    { "title": "Next Generation Internet Initiative", "path": "g/iryf.md" },
     { "title": "OSINT", "path": "g/uyrm.md" },
     { "title": "Obsidian Workflow 2021 - Bryan Jenks", "path": "r/czij.md" },
+    {
+      "title": "Open Source Software Development: Communities\u2019 Impact on Public Good",
+      "path": "r/8mzv.md"
+    },
+    { "title": "OpenAI", "path": "g/t5vn.md" },
     { "title": "Paper Machines: About Cards & Catalogs", "path": "r/ryf2.md" },
     {
       "title": "Perspective: Narrative Storyliving in Virtual Reality Design",
@@ -658,6 +570,7 @@
       "title": "Psychological Effects of Iranian Mirror-Tile Artwork - A Phenomenological Approach",
       "path": "r/9bdc.md"
     },
+    { "title": "Quantified Self to the Extreme", "path": "r/khzz.md" },
     {
       "title": "Reassembling the Social - An Introduction to Actor-Network Theory",
       "path": "r/md6p.md"
@@ -668,12 +581,17 @@
       "path": "r/ocaw.md"
     },
     { "title": "STT E24 - How to be a better programmer", "path": "r/m5aw.md" },
+    {
+      "title": "STT E7 - The largest company in the world should have you a little worried right now",
+      "path": "r/8adr.md"
+    },
     { "title": "STT E9 - Join Big Tech or Not", "path": "r/csxe.md" },
+    { "title": "Sam Sarris", "path": "g/8pfm.md" },
+    { "title": "Sapians", "path": "r/yvrs.md" },
     {
       "title": "Service Science - An Actor-Network Theory Approach",
       "path": "r/pkg8.md"
     },
-    { "title": "Snowden, Edward - Permanent Record", "path": "r/dybl.md" },
     {
       "title": "Some Thoughts on the Question \"How Do New Things Happen?\"",
       "path": "r/u1om.md"
@@ -682,10 +600,8 @@
       "title": "Sometimes the answer is what you don't see",
       "path": "pwog.md"
     },
-    {
-      "title": "Structure-mapping: A theoretical framework for analogy",
-      "path": "r/9l7a.md"
-    },
+    { "title": "Start With Creation", "path": "r/q3ad.md" },
+    { "title": "Technological Determinism", "path": "g/gh6v.md" },
     {
       "title": "Technology matters: Questions to live with",
       "path": "r/a7ui.md"
@@ -716,9 +632,10 @@
       "path": "r/jyhl.md"
     },
     {
-      "title": "The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence Effects From a Survey of Knowledge Workers",
-      "path": "r/jm8v.md"
+      "title": "The Cloud Is Material: On the Environmental Impacts of Computation and Data Storage",
+      "path": "r/pdrh.md"
     },
+    { "title": "The Iceberg Yes", "path": "rh8c.md" },
     { "title": "The Memex Method", "path": "r/ydxa.md" },
     {
       "title": "The Most Important Laboratory for Social Scientific and Computing Research in History",
@@ -728,10 +645,6 @@
     {
       "title": "The Sociology of an Actor-Network: The Case of the Electric Vehicle",
       "path": "r/9xae.md"
-    },
-    {
-      "title": "The Whole Is Always Smaller Than Its Parts - a Digital Test of Gabriel Tardes Monads",
-      "path": "r/szz2.md"
     },
     {
       "title": "The helping hand: In Search of a Swedish Institutional Regime for Infrastructural Systems",
@@ -755,22 +668,33 @@
     },
     { "title": "Thesis: Creative Ideation", "path": "c06x.md" },
     { "title": "Thesis: Scope", "path": "iw5z.md" },
-    { "title": "Thesis: Tools for Thought", "path": "bz1c.md" },
     { "title": "Thesis: What is a connection?", "path": "8dl6.md" },
     { "title": "Thinking in Systems: A Primer", "path": "r/394d.md" },
     {
       "title": "Today In Focus - How to reboot your memory for 2024",
       "path": "r/rzov.md"
     },
+    {
+      "title": "Tools for Reordering: Commonplacing and the Space of Words in Linnaeus's Philosophia Botanica",
+      "path": "r/y30h.md"
+    },
     { "title": "UBI could make or break human kind", "path": "c5c1.md" },
     { "title": "Universal Basic Income and VR", "path": "fx17.md" },
     { "title": "Visions of the Internet in 2035", "path": "r/381v.md" },
+    { "title": "Wavepaths", "path": "g/v9xu.md" },
     {
       "title": "We need to be critical of our changes in tools or workflows, otherwise the value in the change is lost",
       "path": "tpt0.md"
     },
+    {
+      "title": "What and where is the Internet? (Re)defining Internet histories",
+      "path": "r/c70c.md"
+    },
     { "title": "What defines a system?", "path": "a04t.md" },
-    { "title": "Why are thinking tools important?", "path": "s68q.md" },
+    {
+      "title": "Why Open Source Misses the Point of Free Software - GNU Project - Free Software Foundation",
+      "path": "r/p6ou.md"
+    },
     { "title": "Wired to Create", "path": "r/b3eq.md" },
     {
       "title": "YUA - Can myth teach us anything about the race to build AGI?",
@@ -786,8 +710,11 @@
       "path": "r/plqj.md"
     },
     { "title": "Your Work is Not Your God", "path": "r/379m.md" },
-    { "title": "Zeigarnik effect", "path": "g/547m.md" },
     { "title": "Zettelkasten Method - Youtube", "path": "r/dkun.md" },
+    {
+      "title": "a certain way of thinking cannot be broken with, if we are not even aware that it is a certain way of thinking",
+      "path": "1epq.md"
+    },
     {
       "title": "a connection is an aggregate of shared attributes",
       "path": "zslw.md"
@@ -801,9 +728,17 @@
     },
     { "title": "atomic notes", "path": "g/8cik.md" },
     { "title": "boredom is a lost skill", "path": "1kz6.md" },
-    { "title": "cognition", "path": "i/grnz.md" },
+    {
+      "title": "chaos is constant, order is momentary and constantly renewed by the medium of the mind",
+      "path": "iqip.md"
+    },
+    {
+      "title": "cognitive shifting has a negative effect on forming new memories",
+      "path": "95kv.md"
+    },
     { "title": "commonplace book", "path": "g/1d9a.md" },
     { "title": "commonplace-bot", "path": "g/z19p.md" },
+    { "title": "commons-based production", "path": "2o9k.md" },
     {
       "title": "computers can't be sentient until they develop the capacity to desire",
       "path": "03zx.md"
@@ -822,7 +757,6 @@
       "path": "zibq.md"
     },
     { "title": "creative ideas arise through dialogue", "path": "epzx.md" },
-    { "title": "creativity", "path": "i/xuer.md" },
     { "title": "creativity doesn't happen in isolation", "path": "df0u.md" },
     {
       "title": "creativity is accessed when a wide imagination and narrow attention collaborate",
@@ -841,15 +775,16 @@
       "path": "8qcs.md"
     },
     { "title": "define-before-design, design-before-code", "path": "k0hz.md" },
+    {
+      "title": "deliberate mindfulness can disrupt flow state",
+      "path": "ym4k.md"
+    },
     { "title": "distant reading", "path": "g/bd7x.md" },
+    { "title": "dojo guru", "path": "xwau.md" },
     { "title": "dream diary project", "path": "gzox.md" },
     { "title": "edge computing", "path": "g/6bur.md" },
     { "title": "endless horizon of pastel ribbons", "path": "tqot.md" },
     { "title": "even loops have narrative", "path": "lont.md" },
-    {
-      "title": "every hard thing you do is a multiplier on the sum of the rest of your knowledge",
-      "path": "gh0w.md"
-    },
     {
       "title": "everything owes its existance to what came before it",
       "path": "yndp.md"
@@ -867,11 +802,8 @@
       "path": "u6nh.md"
     },
     { "title": "holistic analysis", "path": "g/zncr.md" },
-    {
-      "title": "ideation is what emerges from the translation of data between actants",
-      "path": "3cta.md"
-    },
     { "title": "infosec and hacking", "path": "oz1k.md" },
+    { "title": "intuition is an unconscious intelligence", "path": "0ajm.md" },
     {
       "title": "is creativity fostered by an ability to understand systems?",
       "path": "w0q1.md"
@@ -881,8 +813,16 @@
       "path": "vave.md"
     },
     {
+      "title": "iterative success leads to greater success",
+      "path": "w8dr.md"
+    },
+    {
       "title": "manipulation of society is a form of attribute simplification",
       "path": "htbk.md"
+    },
+    {
+      "title": "material from drafts should be fed back into the Zettelkasten",
+      "path": "5hzs.md"
     },
     {
       "title": "mediating complexity with technology, distributes it over multiple departments",
@@ -896,17 +836,24 @@
     { "title": "path of least resistance", "path": "dc4r.md" },
     { "title": "process of technical birth", "path": "5w2k.md" },
     { "title": "quantified self", "path": "cbr7.md" },
-    { "title": "quest for convenience", "path": "sg6k.md" },
+    {
+      "title": "reduce cognitive overhead to increase cognitive freedom",
+      "path": "0yot.md"
+    },
+    { "title": "religion and spirituality", "path": "i/tu2b.md" },
     { "title": "research, writing and thinking", "path": "i/l6t6.md" },
+    { "title": "reverse centaur", "path": "g/j9vo.md" },
     { "title": "rigidity leads to a loss of spirit", "path": "3noh.md" },
     {
       "title": "simplypsychology.org - Latour's Actor-Network Theory",
       "path": "r/cd70.md"
     },
+    { "title": "small scale and large scale technology", "path": "yadx.md" },
     {
       "title": "social systems are structurally coupled with cognitive systems via language",
       "path": "bugn.md"
     },
+    { "title": "sociology", "path": "i/nhh1.md" },
     { "title": "spaced repetition", "path": "g/ppfk.md" },
     { "title": "start", "path": "i/149x.md" },
     {
@@ -924,6 +871,7 @@
     },
     { "title": "the IBIS method", "path": "r/hb2i.md" },
     { "title": "the barbell method of reading", "path": "r/32uo.md" },
+    { "title": "the brain is not a computer", "path": "vupk.md" },
     {
       "title": "the creativity exhibited by children stems from their innate openness to reality",
       "path": "lf9d.md"
@@ -939,6 +887,7 @@
     },
     { "title": "the flow state is a refuge for creativity", "path": "8s2m.md" },
     { "title": "the hacker ethic", "path": "yf8s.md" },
+    { "title": "the hacker mindset", "path": "xm6y.md" },
     {
       "title": "the more technology used to solve a problem, the more complexity there is to maintain the solution",
       "path": "uceg.md"
@@ -959,24 +908,28 @@
       "path": "c0u9.md"
     },
     { "title": "thinking and narrative are the same", "path": "fywa.md" },
-    {
-      "title": "thinking with something or thinking within something",
-      "path": "ncfq.md"
-    },
     { "title": "this person does not exist", "path": "bc47.md" },
     { "title": "trust in people or machines", "path": "hjam.md" },
+    {
+      "title": "we have a very permeable resistance to accepting things that resemble ourselves",
+      "path": "vbvx.md"
+    },
+    {
+      "title": "we seek to conform and to reduce uncertainty",
+      "path": "4ze0.md"
+    },
     {
       "title": "we've never been on the cusp of a technology as disruptive and as powerful as AI before",
       "path": "x7al.md"
     },
     { "title": "web of dreams", "path": "yfc9.md" },
-    { "title": "what drives economic growth?", "path": "i2ov.md" },
     {
       "title": "what if general artificial intelligence became conscious?",
       "path": "r/6m37.md"
     },
     { "title": "what is an idea?", "path": "5rgh.md" },
     { "title": "what is creativity?", "path": "8o5s.md" },
+    { "title": "what is knowledge?", "path": "kd0z.md" },
     { "title": "what is systems thinking?", "path": "4oyn.md" },
     {
       "title": "when code is closed source, it reduces creativity in the industry",
@@ -984,7 +937,12 @@
     },
     { "title": "where do creative ideas come from?", "path": "wet2.md" },
     { "title": "why a broad skill set is an advantage", "path": "aeet.md" },
+    {
+      "title": "why brainstorming can help uncover strong ideas",
+      "path": "m6hc.md"
+    },
     { "title": "why is AI misunderstood?", "path": "r8xf.md" },
+    { "title": "wiby.me", "path": "g/38z6.md" },
     {
       "title": "your awareness of connection to organic spirit",
       "path": "jeg4.md"
@@ -996,7 +954,6 @@
   ],
   "very_similar": [
     { "title": "24-121", "path": "d/24/24-121.md" },
-    { "title": "24-142", "path": "d/24/24-142.md" },
     {
       "title": "24-154: discussing ANT relations to thesis",
       "path": "d/24/24-154.md"
@@ -1007,6 +964,15 @@
       "path": "r/agt4.md"
     },
     {
+      "title": "Automation of thought processes can have a negative impact",
+      "path": "m55t.md"
+    },
+    { "title": "Communicating with Slip Boxes", "path": "r/dueb.md" },
+    {
+      "title": "Connectionism and Cognitive Architecture - A critical analysis",
+      "path": "r/61ts.md"
+    },
+    {
       "title": "Field Report 4 - Six months using a Zettelkasten to write a thesis",
       "path": "r/dpj8.md"
     },
@@ -1015,8 +981,16 @@
       "path": "r/shw8.md"
     },
     {
+      "title": "How do people get new ideas? - Isaac Asimov",
+      "path": "r/urji.md"
+    },
+    {
       "title": "Insight by de-sign: a calculus on computation",
       "path": "r/0gxi.md"
+    },
+    {
+      "title": "It's much easier to find connections between information when that information is infront of you.",
+      "path": "kluz.md"
     },
     { "title": "LYT - LYT Kit Lessons", "path": "r/et0v.md" },
     {
@@ -1025,13 +999,23 @@
     },
     { "title": "Obsidian", "path": "g/rwux.md" },
     { "title": "Serendipity: vom Gl\u00fcck des Findens", "path": "r/e9hj.md" },
-    { "title": "The Artist in the Machine", "path": "r/wcti.md" },
+    {
+      "title": "Structure-mapping: A theoretical framework for analogy",
+      "path": "r/9l7a.md"
+    },
+    {
+      "title": "The Impact of Generative AI on Critical Thinking: Self-Reported Reductions in Cognitive Effort and Confidence Effects From a Survey of Knowledge Workers",
+      "path": "r/jm8v.md"
+    },
+    {
+      "title": "The Whole Is Always Smaller Than Its Parts - a Digital Test of Gabriel Tardes Monads",
+      "path": "r/szz2.md"
+    },
     { "title": "Thesis: Actor-Network Theory", "path": "nr5n.md" },
-    { "title": "Thesis: Background", "path": "896e.md" },
-    { "title": "Thesis: Fundamental Concept", "path": "toa3.md" },
     { "title": "Thesis: Introduction and Motivation", "path": "x89h.md" },
     { "title": "Thesis: Machine Learning", "path": "kfml.md" },
     { "title": "Thesis: Related Work / State of the Art", "path": "3tk5.md" },
+    { "title": "Thesis: Tools for Thought", "path": "bz1c.md" },
     {
       "title": "Thinking effectively requires the ability to forget",
       "path": "qex1.md"
@@ -1040,23 +1024,25 @@
       "title": "Using Artificial Intelligence to Augment Human Intelligence",
       "path": "r/yepr.md"
     },
-    { "title": "What is a thinking tool?", "path": "7txd.md" },
-    {
-      "title": "Zettelkasten and network graphs support creative ideation by offering interactive systems of interconnected data",
-      "path": "50p9.md"
-    },
-    { "title": "Zettelkasten is a laboratory for ideation", "path": "vojf.md" },
+    { "title": "Why are thinking tools important?", "path": "s68q.md" },
+    { "title": "Zeigarnik effect", "path": "g/547m.md" },
     { "title": "Zettelkasten thrives within entropy", "path": "fy2p.md" },
+    { "title": "cognition", "path": "i/grnz.md" },
     { "title": "creating meaningful links between notes", "path": "ma31.md" },
+    { "title": "creativity", "path": "i/xuer.md" },
     { "title": "ctech masters thesis", "path": "i/ip4r.md" },
+    {
+      "title": "every hard thing you do is a multiplier on the sum of the rest of your knowledge",
+      "path": "gh0w.md"
+    },
     { "title": "holistic analysis supports ideation", "path": "sx2l.md" },
+    {
+      "title": "ideation is what emerges from the translation of data between actants",
+      "path": "3cta.md"
+    },
     {
       "title": "in Zettelkasten, we are actants just as much as the notes are",
       "path": "9hj2.md"
-    },
-    {
-      "title": "material from drafts should be fed back into the Zettelkasten",
-      "path": "5hzs.md"
     },
     { "title": "meeting with Kim Albrecht (2024-01-22)", "path": "r/ekdo.md" },
     {
@@ -1064,27 +1050,41 @@
       "path": "m7x4.md"
     },
     { "title": "thesis graveyard - network graphs", "path": "ic64.md" },
+    {
+      "title": "thinking with something or thinking within something",
+      "path": "ncfq.md"
+    },
     { "title": "what is a connection?", "path": "47ur.md" }
   ],
   "most_similar": [
     { "title": "24-134", "path": "d/24/24-134.md" },
+    { "title": "24-142", "path": "d/24/24-142.md" },
     { "title": "AI Spider Character from Neuromancer", "path": "ujd0.md" },
     {
-      "title": "It's much easier to find connections between information when that information is infront of you.",
-      "path": "kluz.md"
+      "title": "Niklas Luhmann\u2019s Card Index - Thinking Tool, Communication Partner, Publication Machine",
+      "path": "r/hptn.md"
     },
+    { "title": "The Artist in the Machine", "path": "r/wcti.md" },
     {
       "title": "The Zettelkasten system represents an evolution in human cognition",
       "path": "52p0.md"
     },
+    { "title": "Thesis: Background", "path": "896e.md" },
+    { "title": "Thesis: Fundamental Concept", "path": "toa3.md" },
     { "title": "Thesis: Similarity Learning", "path": "3u2m.md" },
     { "title": "Thesis: Zettelkasten", "path": "54pn.md" },
     {
       "title": "Tinderbox Meetup - A discussion with S\u00f6nke Ahrens",
       "path": "r/ti9b.md"
     },
+    { "title": "What is a thinking tool?", "path": "7txd.md" },
+    {
+      "title": "Zettelkasten and network graphs support creative ideation by offering interactive systems of interconnected data",
+      "path": "50p9.md"
+    },
     { "title": "Zettelkasten embodies systems thinking", "path": "gr0b.md" },
     { "title": "Zettelkasten is a conversational partner", "path": "2e94.md" },
+    { "title": "Zettelkasten is a laboratory for ideation", "path": "vojf.md" },
     {
       "title": "Zettelkasten promotes ideation due to inter-note linking",
       "path": "mv04.md"

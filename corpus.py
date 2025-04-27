@@ -1,8 +1,9 @@
 import nltk
-from nltk.tokenize import sent_tokenize
-from nltk.corpus import stopwords
-import string
 import json, os
+import re
+
+md_symbols_patt = r"(#)|(>)|(\*)|(_)"
+md_link_patt = r"\[(.*?)\]\(.*?\)"
 
 
 # Corpus works with the corpus of note data provided by zk.
@@ -27,20 +28,17 @@ class Corpus:
             print(f"Could not open note data at: {cls.note_data}")
             exit(1)
 
-        # taking the note body, and now raw, means frontmatter is not included.
+        # taking the note body, and not raw, means frontmatter is not included.
         dirty_notes = [note["body"] for note in notes]
-        stop_words = set(stopwords.words("english"))
 
         cleaned_notes = []
 
         for note in dirty_notes:
-            tokens = sent_tokenize(note.lower())
-            tokens = [
-                t for t in tokens
-                if t not in string.punctuation and t not in stop_words
-            ]
+            note = re.sub(r'\n', ' ', note)
+            note = re.sub(md_link_patt, r"\1", note)
+            note = re.sub(md_symbols_patt, "", note)
 
-            cleaned_notes.append(" ".join(tokens))
+            cleaned_notes.append(note)
 
         cls.cleaned_notes = cleaned_notes
 
@@ -61,7 +59,8 @@ class Corpus:
             paths_titles.append(combo)
 
         titles_dict = {}
-        # create a dictionary for fast search
+
+        # use a dictionary for fast lookup
         for i, title in enumerate(titles):
             titles_dict[title] = i
 
@@ -71,8 +70,6 @@ class Corpus:
     @classmethod
     def generate_embeddings(cls, model):
         cls.corpus_embeddings = model.encode(cls.cleaned_notes)
-
-    # Getters
 
     # Return embeddings of entire corpus
     @classmethod

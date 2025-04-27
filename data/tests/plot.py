@@ -10,17 +10,15 @@ def load_tensor(path):
     return torch.load(path)
 
 
-def compare_matrices(t1, t2, threshold=0.01):
+def compare_matrices(t1, t2):
     if t1.shape != t2.shape:
         raise ValueError(f"Shape mismatch: {t1.shape} != {t2.shape}")
 
     diff = torch.abs(t1 - t2)
     mean_diff = diff.mean().item()
     max_diff = diff.max().item()
-    num_diff = (diff > threshold).sum().item()
-    percent_diff = 100 * num_diff / diff.numel()
 
-    return diff, mean_diff, max_diff, percent_diff
+    return diff, mean_diff, max_diff
 
 
 def save_heatmap(diff_tensor, out, title):
@@ -39,20 +37,17 @@ def main():
         description="Compare two similarity.pt files")
     parser.add_argument("file1")
     parser.add_argument("file2")
-    parser.add_argument("--threshold", type=float, default=0.01)
     parser.add_argument("--out", default="sim_diff_heatmap.png")
-    parser.add_argument("--title", default="Similarity Tensor Comparrison")
+    parser.add_argument("--title", default="Similarity Tensor Comparison")
     args = parser.parse_args()
 
     sim1 = load_tensor(args.file1)
     sim2 = load_tensor(args.file2)
 
-    diff, mean_diff, max_diff, percent_diff = compare_matrices(
-        sim1, sim2, args.threshold)
+    diff, mean_diff, max_diff = compare_matrices(sim1, sim2)
 
     print(f"Mean absolute difference: {mean_diff:.6f}")
     print(f"Max absolute difference: {max_diff:.6f}")
-    print(f"Percent of elements > {args.threshold}: {percent_diff:.2f}%")
 
     save_heatmap(diff, args.out, args.title)
 

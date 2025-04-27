@@ -80,7 +80,8 @@ def note_simdiss(similarities, title):
         exit(1)
 
     paths_titles = corpus.paths_titles
-    # reduce to a 1d array for simplified handling
+
+    # Retrieve similarity scores for the incoming note only
     similarities = similarities[note_index]
 
     min, max = u.unbiased_min_max(similarities, note_index)
