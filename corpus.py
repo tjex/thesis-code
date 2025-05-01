@@ -47,25 +47,18 @@ class Corpus:
         with open(cls.note_data) as f:
             notes = json.load(f)
 
-        # Extract desired fields from json
         titles = [title["title"] for title in notes]
         paths = [path["path"] for path in notes]
 
-        paths_titles = []
-        for i in range(0, len(titles)):
-            title = titles[i]
-            path = paths[i]
-            combo = [title, path]
-            paths_titles.append(combo)
-
         titles_dict = {}
 
-        # use a dictionary for fast lookup
-        for i, title in enumerate(titles):
-            titles_dict[title] = i
+        l = len(titles)
+        for i in range(0, l):
+            titles_dict[titles[i]] = i  # for getting index from note title
 
-        cls.paths_titles = paths_titles
         cls.titles_dict = titles_dict
+        cls.titles = titles
+        cls.paths = paths
 
     @classmethod
     def generate_embeddings(cls, model):
@@ -76,12 +69,7 @@ class Corpus:
     def embeddings(cls):
         return cls.corpus_embeddings
 
-    # Returns an array with all note paths and titles
-    @classmethod
-    def note_paths_titles(cls):
-        return cls.paths_titles
-
     # Lookup the index of a note by title
     @classmethod
-    def index_from_title(cls, title):
+    def get_index_from_title(cls, title):
         return cls.titles_dict[title]

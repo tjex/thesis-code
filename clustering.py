@@ -1,16 +1,18 @@
 from sklearn.cluster import AgglomerativeClustering
 from sentence_transformers import util
-import util as u
 import corpus as c
-import json
 
 # https://www.sbert.net/examples/applications/clustering/README.html
 
-corpus = c.Corpus
 
-
-# Agglomerative clustering. Returns clusters.
+# Cluster similar notes together
+# (i.e., calculate and compare similarties between all notes)
+# ...
+# Agglomerative clustering.
 def agglo_clustering(similarities, note_titles, nc):
+    """
+    nc: number of clusters to divide into.
+    """
     clustering_model = AgglomerativeClustering(n_clusters=nc,
                                                distance_threshold=None)
     clustering_model.fit(similarities)
@@ -29,15 +31,17 @@ def agglo_clustering(similarities, note_titles, nc):
         print("")
 
 
+# ...
 # Fast clustering
-def fast_clustering(similarities, note_titles):
-    # Two parameters to tune:
-    # min_cluster_size: Only consider cluster that have at least 25 elements
-    # threshold: Consider sentence pairs with a cosine-similarity larger than threshold as similar
+def fast_clustering(similarities, note_titles, min_community_size, threshold):
+    """
+    min_community_size: Only consider clusters that have at least 25 elements.
+    threshold: Consider sentence pairs with a cosine-similarity larger than threshold as similar.
+    """
     clusters = util.community_detection(similarities,
-                                        min_community_size=3,
-                                        threshold=0.3)
-    print(clusters)
+                                        min_community_size=min_community_size,
+                                        threshold=threshold)
+    # print(clusters)
 
     # Print for all clusters the top 3 and bottom 3 elements
     for i, cluster in enumerate(clusters):
@@ -46,100 +50,3 @@ def fast_clustering(similarities, note_titles):
             print("\t", note_titles[note_id])
         if len(cluster) > 3:
             print(f"\t ... and {len(cluster) - 3} more")
-
-
-# creates four values that are used as cross-over / division points
-# for clustering similarity results into "least similar" to "most similar"
-# segments
-def calculate_divisions(min, max):
-    mid = (min + max) / 2
-    sim_range = max - min
-    seg_length = sim_range / 6
-    div1 = round(mid - (seg_length * 2), 4)
-    div2 = round(mid - (seg_length), 4)
-    div3 = round(mid + seg_length, 4)
-    div4 = round(mid + (seg_length * 2), 4)
-
-    return div1, div2, div3, div4
-
-
-# Process a simdiss for a singular note against all other notes
-# in the corpus. There are 5 segments from "least similar" to "most similar".
-# TODO: What should this function return for best usage with zk?
-def note_simdiss(similarities, title):
-    # s for segments. For "least similar" to "most similar" notes.
-    s1, s2, s3, s4, s5 = [], [], [], [], []
-
-    try:
-        note_index = corpus.index_from_title(title)
-    except:
-        print(f"Error retrieving index by title: {title}")
-        print(
-            f"The note either does not exist, or the note data does not contain this note."
-        )
-        exit(1)
-
-    paths_titles = corpus.paths_titles
-
-    # Retrieve similarity scores for the incoming note only
-    similarities = similarities[note_index]
-
-    min, max = u.unbiased_min_max(similarities, note_index)
-    div1, div2, div3, div4 = calculate_divisions(min, max)
-
-    for i, score in enumerate(similarities):
-        if i != note_index:
-            element = paths_titles[i]
-
-            if score <= div1:
-                # order: least similar to most similar
-                s1.append(element)
-            elif div1 < score <= div2:
-                s2.append(element)
-            elif div2 < score <= div3:
-                s3.append(element)
-            elif div3 < score <= div4:
-                s4.append(element)
-            elif div4 < score:
-                s5.append(element)
-
-    _, path = paths_titles[note_index]
-    build_json_file(title, path, s1, s2, s3, s4, s5)
-
-
-def build_json_file(note_title, note_path, s1, s2, s3, s4, s5):
-    json_data = {
-        "title":
-        note_title,
-        "path":
-        note_path,
-        "least_similar": [{
-            "title": title,
-            "path": path
-        } for title, path in s1],
-        "somewhat_similar": [{
-            "title": title,
-            "path": path
-        } for title, path in s2],
-        "moderately_similar": [{
-            "title": title,
-            "path": path
-        } for title, path in s3],
-        "very_similar": [{
-            "title": title,
-            "path": path
-        } for title, path in s4],
-        "most_similar": [{
-            "title": title,
-            "path": path
-        } for title, path in s5],
-    }
-
-    # json_output = json.dumps(json_data, indent=4)
-    try:
-        with open(corpus.simdiss_results, "w") as file:
-            json.dump(json_data, file)
-    except:
-        print(f"Could not write file {corpus.simdiss_results}")
-    else:
-        print(f"Results saved to {corpus.simdiss_results}")

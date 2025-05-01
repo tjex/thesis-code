@@ -1,3 +1,6 @@
+cluster:
+	python main.py cluster
+
 train:
 	python main.py train
 
@@ -10,3 +13,4 @@ simdiss-random:
 
 export-note-data:
 	zk list --format json > data/zk.json
+
