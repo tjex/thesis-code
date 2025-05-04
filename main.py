@@ -17,26 +17,33 @@ def main():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    train_parser = subparsers.add_parser(
-        "train", help="Generate embeddings and similarity matrix")
-    train_parser.add_argument("--sl",
-                              action="store_true",
-                              help="Train similarity learning model.")
-    train_parser.add_argument("--tm",
-                              action="store_true",
-                              help="Train topic model.")
-
+    # simdiss args
     simdiss_parser = subparsers.add_parser(
-        "simdiss", help="Compare note similarity against corpus")
-    simdiss_parser.add_argument("title", help="Title of note to compare")
-    simdiss_parser.add_argument(
+        "sl", help="Compare note similarity against corpus")
+    simdiss_subparsers = simdiss_parser.add_subparsers(dest="simdiss_command",
+                                                       required=True)
+    simdiss_subparsers.add_parser(
+        "train", help="Generate embeddings and similarity matrix.")
+
+    simdiss_subparsers.add_parser("cluster",
+                                  help="Cluster notes by similarity.")
+
+    compare_parser = simdiss_subparsers.add_parser(
+        "compare",
+        help="Compare similarities of all notes against given note.")
+    compare_parser.add_argument("--title", help="Title of note to compare.")
+    compare_parser.add_argument(
         "--strategy",
-        help="Strategy to group notes: std (i.e, standard deviation) or even",
+        help="Strategy to group notes: std (i.e, standard deviation) or even.",
         default="std")
 
-    subparsers.add_parser("cluster", help="Cluster notes by similarity.")
-    subparsers.add_parser("topic-vis",
-                          help="Perform topic modelling on notes.")
+    # topic modeling args
+    topic_parser = subparsers.add_parser("tm",
+                                         help="Work with topic modeling.")
+    topic_subparsers = topic_parser.add_subparsers(dest="topic_command",
+                                                   required=True)
+
+    topic_subparsers.add_parser("train", help="Train topic model.")
 
     args = parser.parse_args()
 
@@ -57,43 +64,49 @@ def main():
     notes = corpus.cleaned_notes
     bertopic.init(model, notes)
 
-    if args.command == "train":
-        if args.sl:
-            print("Generating embeddings...")
-            corpus.generate_embeddings(model)
-            embeddings = corpus.embeddings()
+    print(args)
 
-            print("Saving embeddings...")
-            np.save("data/embeddings", embeddings)
+    if args.command == "sl":
+        match args.simdiss_command:
+            case "train":
+                print("Generating embeddings...")
+                corpus.generate_embeddings(model)
+                embeddings = corpus.embeddings()
 
-            print("Calculating similarity scores (cosine)...")
-            similarities = similarity.cos_sim_elementwise(embeddings)
-            torch.save(similarities, "data/similarities.pt")
+                print("Saving embeddings...")
+                np.save("data/embeddings", embeddings)
 
-        if args.tm:
-            print("Generating topic model...")
-            bertopic.derive_topics()
+                print("Calculating similarity scores (cosine)...")
+                similarities = similarity.cos_sim_elementwise(embeddings)
+                torch.save(similarities, "data/similarities.pt")
 
-    elif args.command == "simdiss":
-        title_input = args.title
+            case "compare":
+                title_input = args.title
 
-        print("Loading embeddings...")
-        similarities = torch.load("data/similarities.pt")
+                print("Loading embeddings...")
+                similarities = torch.load("data/similarities.pt")
 
-        print(f"Calculating similarities against: {title_input}")
-        similarity.note_simdiss(similarities,
-                                title_input,
-                                strategy=args.strategy)
+                print(f"Calculating similarities against: {title_input}")
+                similarity.note_simdiss(similarities,
+                                        title_input,
+                                        strategy=args.strategy)
 
-    elif args.command == "cluster":
-        print("Loading embeddings...")
-        similarities = torch.load("data/similarities.pt")
-        clustering.agglo_clustering(similarities, corpus.titles, 5)
-        clustering.fast_clustering(similarities, corpus.titles, 15, 0.95)
+            case "cluster":
+                print("Loading embeddings...")
+                similarities = torch.load("data/similarities.pt")
+                clustering.agglo_clustering(similarities, corpus.titles, 5)
+                clustering.fast_clustering(similarities, corpus.titles, 15,
+                                           0.95)
 
-    elif args.command == "topic-vis":
-        print("Running topic modelling with BERTopic...")
-        bertopic.topic_vis()
+    if args.command == "tm":
+        match args.topic_command:
+            case "train":
+                print("Generating topic model...")
+                bertopic.derive_topics()
+
+            case "topic-vis":
+                print("Running topic modelling with BERTopic...")
+                bertopic.topic_vis()
 
 
 if __name__ == "__main__":

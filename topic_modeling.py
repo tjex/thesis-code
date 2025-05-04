@@ -45,6 +45,16 @@ class BTopic:
                              save_embedding_model=cls.embedding_model)
 
     @classmethod
+    def list_topics(cls):
+        topic_model = cls.topic_model.load(model_dir, cls.embedding_model)
+        topics = topic_model.get_topics()
+
+        for topic_id, words_probs in topics.items():
+            print(f"\nTopic {topic_id}:")
+            for word, prob in words_probs:
+                print(f"  {word} ({prob:.4f})")
+
+    @classmethod
     def topic_vis(cls):
         cls.topic_model = cls.topic_model.load(model_dir, cls.embedding_model)
         topic_1 = pd.DataFrame(data=cls.topic_model.get_topic(0),
