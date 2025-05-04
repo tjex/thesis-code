@@ -44,6 +44,8 @@ def main():
                                                    required=True)
 
     topic_subparsers.add_parser("train", help="Train topic model.")
+    topic_subparsers.add_parser("list", help="List topics.")
+    topic_subparsers.add_parser("misc", help="For testing.")
 
     args = parser.parse_args()
 
@@ -63,8 +65,6 @@ def main():
     bertopic = topic_modeling.BTopic()
     notes = corpus.cleaned_notes
     bertopic.init(model, notes)
-
-    print(args)
 
     if args.command == "sl":
         match args.simdiss_command:
@@ -105,8 +105,14 @@ def main():
                 bertopic.derive_topics()
 
             case "topic-vis":
-                print("Running topic modelling with BERTopic...")
                 bertopic.topic_vis()
+
+            case "list":
+                bertopic.document_topics()
+
+            case "misc":
+                docs = bertopic.docs_for_topic(1)
+                print(docs)
 
 
 if __name__ == "__main__":

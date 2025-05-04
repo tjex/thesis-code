@@ -1,4 +1,3 @@
-import nltk
 import json, os
 import re
 
@@ -17,9 +16,6 @@ class Corpus:
 
     @classmethod
     def clean_notes(cls):
-        nltk.download("punkt")
-        nltk.download("punkt_tab")
-        nltk.download("stopwords")
 
         try:
             with open(cls.note_data) as f:

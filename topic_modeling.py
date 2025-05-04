@@ -7,6 +7,7 @@ from corpus import Corpus as corpus
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
+import pickle
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 standard_stopwords = list(stopwords.words('english'))
@@ -29,7 +30,21 @@ class BTopic:
                                    nr_topics=7,
                                    embedding_model=embedding_model,
                                    vectorizer_model=vectorizer,
-                                   umap_model=UMAP(random_state=1))
+                                   umap_model=UMAP(n_neighbors=15,
+                                                   n_components=5,
+                                                   min_dist=0.0,
+                                                   metric='cosine'))
+
+    # for testing implementations before setting an actual command
+    @classmethod
+    def misc(cls):
+        with open(os.path.join(model_dir, "topics.pkl"), "rb") as f:
+            topics = pickle.load(f)
+        with open(os.path.join(model_dir, "docs.pkl"), "rb") as f:
+            cls.notes = pickle.load(f)
+
+        df = pd.DataFrame({"topic": topics, "doc": cls.notes})
+        print(df)
 
     # Code from:
     # https://towardsdatascience.com/topic-modelling-with-berttopic-in-python-8a80d529de34/
@@ -38,21 +53,42 @@ class BTopic:
         if not os.path.isdir(model_dir):
             os.mkdir(model_dir)
 
-        cls.topic_model.fit_transform(cls.notes)
+        topics, _ = cls.topic_model.fit_transform(cls.notes)
         cls.topic_model.save(model_dir,
                              serialization="safetensors",
                              save_ctfidf=True,
                              save_embedding_model=cls.embedding_model)
 
-    @classmethod
-    def list_topics(cls):
-        topic_model = cls.topic_model.load(model_dir, cls.embedding_model)
-        topics = topic_model.get_topics()
+        reps = cls.topic_model.get_representative_docs(0)
+        print(reps)
 
-        for topic_id, words_probs in topics.items():
-            print(f"\nTopic {topic_id}:")
-            for word, prob in words_probs:
-                print(f"  {word} ({prob:.4f})")
+        # Save topics and notes separately for later recall
+        with open(os.path.join(model_dir, "topics.pkl"), "wb") as f:
+            pickle.dump(topics, f)
+        with open(os.path.join(model_dir, "docs.pkl"), "wb") as f:
+            pickle.dump(cls.notes, f)
+
+    @classmethod
+    def document_topics(cls):
+        # Load saved topics and notes
+        with open(os.path.join(model_dir, "topics.pkl"), "rb") as f:
+            topics = pickle.load(f)
+        with open(os.path.join(model_dir, "docs.pkl"), "rb") as f:
+            notes = pickle.load(f)
+
+        df = pd.DataFrame({"topic": topics, "doc": notes})
+        print(df)
+
+    @classmethod
+    def docs_for_topic(cls, topic):
+        # Load saved topics and notes
+        with open(os.path.join(model_dir, "topics.pkl"), "rb") as f:
+            topics = pickle.load(f)
+        with open(os.path.join(model_dir, "docs.pkl"), "rb") as f:
+            notes = pickle.load(f)
+
+        cls.topic_model.fit_transform(cls.notes)
+        cls.topic_model.get_representative_docs(0)
 
     @classmethod
     def topic_vis(cls):
