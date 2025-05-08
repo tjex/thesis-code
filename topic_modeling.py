@@ -1,9 +1,9 @@
 from bertopic import BERTopic
 import pandas as pd
+from pandas import DataFrame
 from umap import UMAP
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
-from corpus import Corpus as corpus
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
@@ -21,13 +21,12 @@ class BTopic:
     def init(cls, embedding_model, notes):
         cls.embedding_model = embedding_model
         cls.notes = notes
-        cls.corpus = corpus
         vectorizer = CountVectorizer(ngram_range=(2, 2),
                                      stop_words=standard_stopwords)
 
         cls.topic_model = BERTopic(top_n_words=10,
                                    n_gram_range=(2, 2),
-                                   nr_topics=7,
+                                   nr_topics=15,
                                    embedding_model=embedding_model,
                                    vectorizer_model=vectorizer,
                                    umap_model=UMAP(n_neighbors=15,
@@ -35,16 +34,19 @@ class BTopic:
                                                    min_dist=0.0,
                                                    metric='cosine'))
 
+    @classmethod
+    def _load_model(cls):
+        cls.topic_model = cls.topic_model.load(model_dir, cls.embedding_model)
+        return cls.topic_model
+
     # for testing implementations before setting an actual command
     @classmethod
     def misc(cls):
-        with open(os.path.join(model_dir, "topics.pkl"), "rb") as f:
-            topics = pickle.load(f)
-        with open(os.path.join(model_dir, "docs.pkl"), "rb") as f:
-            cls.notes = pickle.load(f)
-
-        df = pd.DataFrame({"topic": topics, "doc": cls.notes})
-        print(df)
+        cls.topic_model = cls._load_model()
+        topics, similarity = cls.topic_model.find_topics("sports", top_n=5)
+        print(topics, similarity)
+        for t in topics:
+            cls.topic_model.get_topic(t)
 
     # Code from:
     # https://towardsdatascience.com/topic-modelling-with-berttopic-in-python-8a80d529de34/
@@ -59,9 +61,6 @@ class BTopic:
                              save_ctfidf=True,
                              save_embedding_model=cls.embedding_model)
 
-        reps = cls.topic_model.get_representative_docs(0)
-        print(reps)
-
         # Save topics and notes separately for later recall
         with open(os.path.join(model_dir, "topics.pkl"), "wb") as f:
             pickle.dump(topics, f)
@@ -69,7 +68,7 @@ class BTopic:
             pickle.dump(cls.notes, f)
 
     @classmethod
-    def document_topics(cls):
+    def document_topics(cls) -> DataFrame:
         # Load saved topics and notes
         with open(os.path.join(model_dir, "topics.pkl"), "rb") as f:
             topics = pickle.load(f)
@@ -78,21 +77,35 @@ class BTopic:
 
         df = pd.DataFrame({"topic": topics, "doc": notes})
         print(df)
+        return df
 
     @classmethod
-    def docs_for_topic(cls, topic):
-        # Load saved topics and notes
-        with open(os.path.join(model_dir, "topics.pkl"), "rb") as f:
-            topics = pickle.load(f)
-        with open(os.path.join(model_dir, "docs.pkl"), "rb") as f:
-            notes = pickle.load(f)
+    def docs_for_topic(cls, topic_id):
+        # get_representitive_documents() could be used here, but it requires the
+        # model.fit_transform() and therefore for the fitted model to be loaded
+        # in ram. Doing it manually here as is more efficient.
+        df = cls.document_topics()
 
-        cls.topic_model.fit_transform(cls.notes)
-        cls.topic_model.get_representative_docs(0)
+        topic_docs = df[df["topic"] == topic_id]
+
+        if topic_docs.empty:
+            print(f"No documents found for topic {topic_id}.")
+        else:
+            print(f"Documents for topic {topic_id}:\n")
+            for i, doc in enumerate(topic_docs["doc"], 1):
+                print(f"{i}. {doc}\n")
+
+    @classmethod
+    def topic_labels(cls):
+        cls.topic_model = cls._load_model()
+        topic_labels = cls.topic_model.generate_topic_labels(nr_words=3,
+                                                             separator=", ")
+        for t in topic_labels:
+            print(t)
 
     @classmethod
     def topic_vis(cls):
-        cls.topic_model = cls.topic_model.load(model_dir, cls.embedding_model)
+        cls.topic_model = cls._load_model()
         topic_1 = pd.DataFrame(data=cls.topic_model.get_topic(0),
                                columns=["Topic_1_word", "Topic_1_prob"])
         topic_2 = pd.DataFrame(data=cls.topic_model.get_topic(1),

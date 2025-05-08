@@ -43,9 +43,17 @@ def main():
     topic_subparsers = topic_parser.add_subparsers(dest="topic_command",
                                                    required=True)
 
-    topic_subparsers.add_parser("train", help="Train topic model.")
-    topic_subparsers.add_parser("list", help="List topics.")
     topic_subparsers.add_parser("misc", help="For testing.")
+    topic_subparsers.add_parser("train", help="Train topic model.")
+    list_parser = topic_subparsers.add_parser("list",
+                                              help="List various results.")
+    list_parser.add_argument("--topics",
+                             action="store_true",
+                             help="List topics")
+    list_parser.add_argument("--topic-labels",
+                             action="store_true",
+                             help="List topics")
+    list_parser.add_argument("--docs-for-topic", type=int, help="List topics")
 
     args = parser.parse_args()
 
@@ -63,8 +71,7 @@ def main():
 
     # Init BERTopic
     bertopic = topic_modeling.BTopic()
-    notes = corpus.cleaned_notes
-    bertopic.init(model, notes)
+    bertopic.init(model, corpus.cleaned_notes)
 
     if args.command == "sl":
         match args.simdiss_command:
@@ -108,11 +115,15 @@ def main():
                 bertopic.topic_vis()
 
             case "list":
-                bertopic.document_topics()
+                if args.topics:
+                    bertopic.document_topics()
+                if args.topic_labels:
+                    bertopic.topic_labels()
+                if args.docs_for_topic is not None:
+                    bertopic.docs_for_topic(args.docs_for_topic)
 
             case "misc":
-                docs = bertopic.docs_for_topic(1)
-                print(docs)
+                bertopic.misc()
 
 
 if __name__ == "__main__":
