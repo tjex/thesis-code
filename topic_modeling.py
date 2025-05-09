@@ -42,8 +42,12 @@ class BTopic:
     # for testing implementations before setting an actual command
     @classmethod
     def misc(cls):
+        print("foo")
+
+    @classmethod
+    def topic_search(cls, search_term):
         cls.topic_model = cls._load_model()
-        topics, similarity = cls.topic_model.find_topics("sports", top_n=5)
+        topics, similarity = cls.topic_model.find_topics(search_term, top_n=5)
         print(topics, similarity)
         for t in topics:
             cls.topic_model.get_topic(t)
@@ -61,7 +65,7 @@ class BTopic:
                              save_ctfidf=True,
                              save_embedding_model=cls.embedding_model)
 
-        # Save topics and notes separately for later recall
+        # Save topics and notes as pickle dumps separately for later recall
         with open(os.path.join(model_dir, "topics.pkl"), "wb") as f:
             pickle.dump(topics, f)
         with open(os.path.join(model_dir, "docs.pkl"), "wb") as f:

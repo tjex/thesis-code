@@ -53,6 +53,9 @@ def main():
     list_parser.add_argument("--topic-labels",
                              action="store_true",
                              help="List topics")
+    list_parser.add_argument("--topic-search",
+                             type=str,
+                             help="Find topics most similar to search term.")
     list_parser.add_argument("--docs-for-topic", type=int, help="List topics")
 
     args = parser.parse_args()
@@ -119,6 +122,8 @@ def main():
                     bertopic.document_topics()
                 if args.topic_labels:
                     bertopic.topic_labels()
+                if args.topic_search is not None:
+                    bertopic.topic_search(args.topic_search)
                 if args.docs_for_topic is not None:
                     bertopic.docs_for_topic(args.docs_for_topic)
 
