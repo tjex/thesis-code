@@ -26,16 +26,16 @@ class BTopic:
 
         cls.topic_model = BERTopic(top_n_words=10,
                                    n_gram_range=(2, 2),
-                                   nr_topics=15,
+                                   nr_topics=30,
                                    embedding_model=embedding_model,
                                    vectorizer_model=vectorizer,
-                                   umap_model=UMAP(n_neighbors=15,
+                                   umap_model=UMAP(n_neighbors=30,
                                                    n_components=5,
                                                    min_dist=0.0,
                                                    metric='cosine'))
 
     @classmethod
-    def _load_model(cls):
+    def _load_model(cls) -> BERTopic:
         cls.topic_model = cls.topic_model.load(model_dir, cls.embedding_model)
         return cls.topic_model
 
@@ -47,7 +47,30 @@ class BTopic:
     # for testing implementations before setting an actual command
     @classmethod
     def misc(cls):
+        model = cls._load_model()
+        print(model.topic_sizes_)
         print("misc")
+
+    # Code from:
+    # https://towardsdatascience.com/topic-modelling-with-berttopic-in-python-8a80d529de34/
+    @classmethod
+    def derive_topics(cls):
+        if not os.path.isdir(model_dir):
+            os.mkdir(model_dir)
+
+        topics, probabilities = cls.topic_model.fit_transform(cls.notes)
+        cls.topic_model.save(model_dir,
+                             serialization="safetensors",
+                             save_ctfidf=True,
+                             save_embedding_model=cls.embedding_model)
+
+        df = pd.DataFrame({
+            "topic": topics,
+            "title": cls.titles,
+            "doc": cls.notes,
+            "prob": probabilities
+        })
+        df.to_pickle(os.path.join(model_dir, "topic_data.pkl"))
 
     @classmethod
     def topic_search(cls, search_term):
@@ -69,35 +92,17 @@ class BTopic:
                     continue
                 print(f"{it[0]}")
 
-    # Code from:
-    # https://towardsdatascience.com/topic-modelling-with-berttopic-in-python-8a80d529de34/
-    @classmethod
-    def derive_topics(cls):
-        if not os.path.isdir(model_dir):
-            os.mkdir(model_dir)
-
-        topics, probabilities = cls.topic_model.fit_transform(cls.notes)
-        cls.topic_model.save(model_dir,
-                             serialization="safetensors",
-                             save_ctfidf=True,
-                             save_embedding_model=cls.embedding_model)
-
-        df = pd.DataFrame({
-            "topic": topics,
-            "title": cls.titles,
-            "doc": cls.notes,
-            "prob": probabilities,
-        })
-        df.to_pickle(os.path.join(model_dir, "topic_data.pkl"))
-
     @classmethod
     def list_topics(cls):
         cls.topic_model = cls._load_model()
+
         topic_labels = cls.topic_model.generate_topic_labels(
             nr_words=3, topic_prefix=False, separator=", ")
         topic_id = ""
+
         print("Schema:")
         print(f"[Topic ID: (top three topic labels)]\n")
+
         for i, t in enumerate(topic_labels):
             if i == 0:
                 topic_id = "Outliers"
