@@ -74,7 +74,7 @@ def main():
 
     # Init BERTopic
     bertopic = topic_modeling.BTopic()
-    bertopic.init(model, corpus.cleaned_notes)
+    bertopic.init(model, corpus.cleaned_notes, corpus.titles)
 
     if args.command == "sl":
         match args.simdiss_command:

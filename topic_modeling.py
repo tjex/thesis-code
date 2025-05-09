@@ -18,9 +18,10 @@ model_dir = "data/bertopic"
 class BTopic:
 
     @classmethod
-    def init(cls, embedding_model, notes):
+    def init(cls, embedding_model, notes, titles):
         cls.embedding_model = embedding_model
         cls.notes = notes
+        cls.titles = titles
         vectorizer = CountVectorizer(ngram_range=(2, 2),
                                      stop_words=standard_stopwords)
 
@@ -70,16 +71,18 @@ class BTopic:
             pickle.dump(topics, f)
         with open(os.path.join(model_dir, "docs.pkl"), "wb") as f:
             pickle.dump(cls.notes, f)
+        with open(os.path.join(model_dir, "titles.pkl"), "wb") as f:
+            pickle.dump(cls.titles, f)
 
     @classmethod
     def document_topics(cls) -> DataFrame:
         # Load saved topics and notes
         with open(os.path.join(model_dir, "topics.pkl"), "rb") as f:
             topics = pickle.load(f)
-        with open(os.path.join(model_dir, "docs.pkl"), "rb") as f:
-            notes = pickle.load(f)
+        with open(os.path.join(model_dir, "titles.pkl"), "rb") as f:
+            titles = pickle.load(f)
 
-        df = pd.DataFrame({"topic": topics, "doc": notes})
+        df = pd.DataFrame({"topic": topics, "title": titles})
         print(df)
         return df
 
@@ -96,7 +99,7 @@ class BTopic:
             print(f"No documents found for topic {topic_id}.")
         else:
             print(f"Documents for topic {topic_id}:\n")
-            for i, doc in enumerate(topic_docs["doc"], 1):
+            for i, doc in enumerate(topic_docs["title"], 1):
                 print(f"{i}. {doc}\n")
 
     @classmethod

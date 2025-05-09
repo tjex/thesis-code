@@ -48,9 +48,10 @@ class Corpus:
 
         titles_dict = {}
 
+        # for getting note index from note title
         l = len(titles)
         for i in range(0, l):
-            titles_dict[titles[i]] = i  # for getting index from note title
+            titles_dict[titles[i]] = i
 
         cls.titles_dict = titles_dict
         cls.titles = titles
