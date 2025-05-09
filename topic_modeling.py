@@ -94,15 +94,17 @@ class BTopic:
     def list_topics(cls):
         cls.topic_model = cls._load_model()
         topic_labels = cls.topic_model.generate_topic_labels(
-            nr_words=3, topic_prefix=False, separator=" | ")
+            nr_words=3, topic_prefix=False, separator=", ")
         topic_id = ""
+        print("Schema:")
+        print(f"[Topic ID: (top three topic labels)]\n")
         for i, t in enumerate(topic_labels):
             if i == 0:
                 topic_id = "Outliers"
             else:
                 topic_id = str(i - 1)
 
-            print(f"{topic_id}: {t}")
+            print(f"{topic_id}: ({t})")
 
     @classmethod
     def list_docs_for_topic(cls, topic_id):

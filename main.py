@@ -50,6 +50,7 @@ def cli_args():
     list_parser.add_argument("--topics",
                              action="store_true",
                              help="List topics")
+    list_parser.add_argument("--docs-for-topic", type=int, help="List topics.")
     list_parser.add_argument("--topic-search",
                              type=str,
                              help="Find topics most similar to search term.")
@@ -57,7 +58,6 @@ def cli_args():
         "--topically-related",
         type=str,
         help="List other notes that share the same topic.")
-    list_parser.add_argument("--docs-for-topic", type=int, help="List topics.")
 
     args = parser.parse_args()
     return args
@@ -127,11 +127,11 @@ def main():
             case "list":
                 if args.topics:
                     bertopic.list_topics()
-                if args.topic_search is not None:
-                    bertopic.topic_search(args.topic_search)
                 if args.docs_for_topic is not None:
                     print(f"Documents for topic {args.docs_for_topic}:\n")
                     bertopic.list_docs_for_topic(args.docs_for_topic)
+                if args.topic_search is not None:
+                    bertopic.topic_search(args.topic_search)
                 if args.topically_related is not None:
                     bertopic.list_topically_related_notes(
                         args.topically_related)
