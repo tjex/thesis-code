@@ -1,13 +1,11 @@
 from bertopic import BERTopic
 import pandas as pd
-from pandas import DataFrame
 from umap import UMAP
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
 import seaborn as sns
 import matplotlib.pyplot as plt
 import os
-import pickle
 from nltk.tokenize import sent_tokenize, word_tokenize
 
 standard_stopwords = list(stopwords.words('english'))
@@ -18,10 +16,11 @@ model_dir = "data/bertopic"
 class BTopic:
 
     @classmethod
-    def init(cls, embedding_model, notes, titles):
+    def init(cls, embedding_model, notes, titles, titles_dict):
         cls.embedding_model = embedding_model
         cls.notes = notes
         cls.titles = titles
+        cls.titles_dict = titles_dict
         vectorizer = CountVectorizer(ngram_range=(2, 2),
                                      stop_words=standard_stopwords)
 
@@ -40,10 +39,15 @@ class BTopic:
         cls.topic_model = cls.topic_model.load(model_dir, cls.embedding_model)
         return cls.topic_model
 
+    @classmethod
+    def _get_topic_data(cls):
+        df = pd.read_pickle(os.path.join(model_dir, "topic_data.pkl"))
+        return df
+
     # for testing implementations before setting an actual command
     @classmethod
     def misc(cls):
-        print("foo")
+        print("misc")
 
     @classmethod
     def topic_search(cls, search_term):
@@ -60,55 +64,57 @@ class BTopic:
         if not os.path.isdir(model_dir):
             os.mkdir(model_dir)
 
-        topics, _ = cls.topic_model.fit_transform(cls.notes)
+        topics, probabilities = cls.topic_model.fit_transform(cls.notes)
         cls.topic_model.save(model_dir,
                              serialization="safetensors",
                              save_ctfidf=True,
                              save_embedding_model=cls.embedding_model)
 
-        # Save topics and notes as pickle dumps separately for later recall
-        with open(os.path.join(model_dir, "topics.pkl"), "wb") as f:
-            pickle.dump(topics, f)
-        with open(os.path.join(model_dir, "docs.pkl"), "wb") as f:
-            pickle.dump(cls.notes, f)
-        with open(os.path.join(model_dir, "titles.pkl"), "wb") as f:
-            pickle.dump(cls.titles, f)
+        df = pd.DataFrame({
+            "topic": topics,
+            "title": cls.titles,
+            "doc": cls.notes,
+            "prob": probabilities,
+        })
+        df.to_pickle(os.path.join(model_dir, "topic_data.pkl"))
 
     @classmethod
-    def document_topics(cls) -> DataFrame:
-        # Load saved topics and notes
-        with open(os.path.join(model_dir, "topics.pkl"), "rb") as f:
-            topics = pickle.load(f)
-        with open(os.path.join(model_dir, "titles.pkl"), "rb") as f:
-            titles = pickle.load(f)
+    def list_topics(cls):
+        cls.topic_model = cls._load_model()
+        topic_labels = cls.topic_model.generate_topic_labels(
+            nr_words=3, topic_prefix=False, separator=" | ")
+        topic_id = ""
+        for i, t in enumerate(topic_labels):
+            if i == 0:
+                topic_id = "Outliers"
+            else:
+                topic_id = str(i - 1)
 
-        df = pd.DataFrame({"topic": topics, "title": titles})
-        print(df)
-        return df
+            print(f"{topic_id}: {t}")
 
     @classmethod
-    def docs_for_topic(cls, topic_id):
+    def list_docs_for_topic(cls, topic_id):
         # get_representitive_documents() could be used here, but it requires the
         # model.fit_transform() and therefore for the fitted model to be loaded
         # in ram. Doing it manually here as is more efficient.
-        df = cls.document_topics()
+        df = cls._get_topic_data()
 
         topic_docs = df[df["topic"] == topic_id]
 
         if topic_docs.empty:
             print(f"No documents found for topic {topic_id}.")
         else:
-            print(f"Documents for topic {topic_id}:\n")
+
             for i, doc in enumerate(topic_docs["title"], 1):
-                print(f"{i}. {doc}\n")
+                print(f"{i}. {doc}")
 
     @classmethod
-    def topic_labels(cls):
-        cls.topic_model = cls._load_model()
-        topic_labels = cls.topic_model.generate_topic_labels(nr_words=3,
-                                                             separator=", ")
-        for t in topic_labels:
-            print(t)
+    def list_topically_related_notes(cls, title):
+        note_index = cls.titles_dict[title]
+        df = cls._get_topic_data()
+        note_topic = df["topic"][note_index]
+        print(f"Documents topically related to: {title}\n")
+        cls.list_docs_for_topic(note_topic)
 
     @classmethod
     def topic_vis(cls):

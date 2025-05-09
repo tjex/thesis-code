@@ -50,13 +50,14 @@ def main():
     list_parser.add_argument("--topics",
                              action="store_true",
                              help="List topics")
-    list_parser.add_argument("--topic-labels",
-                             action="store_true",
-                             help="List topics")
     list_parser.add_argument("--topic-search",
                              type=str,
                              help="Find topics most similar to search term.")
-    list_parser.add_argument("--docs-for-topic", type=int, help="List topics")
+    list_parser.add_argument(
+        "--topically-related",
+        type=str,
+        help="List other notes that share the same topic.")
+    list_parser.add_argument("--docs-for-topic", type=int, help="List topics.")
 
     args = parser.parse_args()
 
@@ -74,7 +75,8 @@ def main():
 
     # Init BERTopic
     bertopic = topic_modeling.BTopic()
-    bertopic.init(model, corpus.cleaned_notes, corpus.titles)
+    bertopic.init(model, corpus.cleaned_notes, corpus.titles,
+                  corpus.titles_dict)
 
     if args.command == "sl":
         match args.simdiss_command:
@@ -119,13 +121,15 @@ def main():
 
             case "list":
                 if args.topics:
-                    bertopic.document_topics()
-                if args.topic_labels:
-                    bertopic.topic_labels()
+                    bertopic.list_topics()
                 if args.topic_search is not None:
                     bertopic.topic_search(args.topic_search)
                 if args.docs_for_topic is not None:
-                    bertopic.docs_for_topic(args.docs_for_topic)
+                    print(f"Documents for topic {args.docs_for_topic}:\n")
+                    bertopic.list_docs_for_topic(args.docs_for_topic)
+                if args.topically_related is not None:
+                    bertopic.list_topically_related_notes(
+                        args.topically_related)
 
             case "misc":
                 bertopic.misc()
