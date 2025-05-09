@@ -13,7 +13,7 @@ import torch
 import argparse
 
 
-def main():
+def cli_args():
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -60,6 +60,11 @@ def main():
     list_parser.add_argument("--docs-for-topic", type=int, help="List topics.")
 
     args = parser.parse_args()
+    return args
+
+
+def main():
+    args = cli_args()
 
     model = SentenceTransformer("all-mpnet-base-v2")
     model.max_seq_length = 500

@@ -51,11 +51,23 @@ class BTopic:
 
     @classmethod
     def topic_search(cls, search_term):
+        """
+        Return the top three topics that are related to the search term.
+        Prints the topics, topic labels and their descriptive score.
+        """
         cls.topic_model = cls._load_model()
-        topics, similarity = cls.topic_model.find_topics(search_term, top_n=5)
-        print(topics, similarity)
-        for t in topics:
-            cls.topic_model.get_topic(t)
+        topics, similarity = cls.topic_model.find_topics(search_term, top_n=3)
+
+        for i, t in enumerate(topics):
+            indi_topics = cls.topic_model.get_topic(t)
+            sim = round(similarity[i], 2) * 100
+            print("\n")
+            print(f"Topic {t} ({sim}% similar to '{search_term}')")
+            for j, it in enumerate(indi_topics):
+                if j >= 4:
+                    # Limit the amount of topic labels
+                    continue
+                print(f"{it[0]}")
 
     # Code from:
     # https://towardsdatascience.com/topic-modelling-with-berttopic-in-python-8a80d529de34/
@@ -104,7 +116,6 @@ class BTopic:
         if topic_docs.empty:
             print(f"No documents found for topic {topic_id}.")
         else:
-
             for i, doc in enumerate(topic_docs["title"], 1):
                 print(f"{i}. {doc}")
 
