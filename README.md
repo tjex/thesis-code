@@ -30,7 +30,7 @@ zk list --format json > data/zk.json # output data to json
 ./main.py sl compare --title "Zettelkasten is an interface for thought"
 
 # list notes topically related to given search term
-./main.py tm list --topically-related "Zettelkasten is an interface for thought"
+./main.py tm list --related "Zettelkasten is an interface for thought"
 
 # list topics of corpus and their topic ids.
 ./main.py tm list --topics
