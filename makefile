@@ -1,11 +1,5 @@
-cluster:
-	python main.py cluster
-
-train:
-	python main.py train
-
 simdiss-test:
-	python main.py simdiss "Zettelkasten is an interface for thought"
+	python main.py sl compare --title "Zettelkasten is an interface for thought"
 
 simdiss-random:
 	zk list --quiet --format "{{title}}" --sort random --limit 1 --no-input \
