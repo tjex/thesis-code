@@ -23,7 +23,7 @@ def cli_args():
     simdiss_subparsers = simdiss_parser.add_subparsers(dest="simdiss_command",
                                                        required=True)
     simdiss_subparsers.add_parser(
-        "train", help="Generate embeddings and similarity matrix.")
+        "train", help="Train similarity learning model.")
 
     simdiss_subparsers.add_parser("cluster",
                                   help="Cluster notes by similarity.")
@@ -50,7 +50,7 @@ def cli_args():
     list_parser.add_argument("--topics",
                              action="store_true",
                              help="List topics")
-    list_parser.add_argument("--docs-for-topic", type=int, help="List topics.")
+    list_parser.add_argument("--docs-for-topic", type=int, help="List documents belonging to a given topic.")
     list_parser.add_argument("--topic-search",
                              type=str,
                              help="Find topics most similar to search term.")
