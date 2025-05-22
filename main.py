@@ -55,7 +55,7 @@ def cli_args():
                              type=str,
                              help="Find topics most similar to search term.")
     list_parser.add_argument(
-        "--topically-related",
+        "--related",
         type=str,
         help="List other notes that share the same topic.")
 
@@ -132,9 +132,9 @@ def main():
                     bertopic.list_docs_for_topic(args.docs_for_topic)
                 if args.topic_search is not None:
                     bertopic.topic_search(args.topic_search)
-                if args.topically_related is not None:
+                if args.related is not None:
                     bertopic.list_topically_related_notes(
-                        args.topically_related)
+                        args.related)
 
             case "misc":
                 bertopic.misc()

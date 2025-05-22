@@ -34,6 +34,7 @@ class Corpus:
             note = re.sub(md_link_patt, r"\1", note)
             note = re.sub(md_symbols_patt, "", note)
 
+
             cleaned_notes.append(note)
 
         cls.cleaned_notes = cleaned_notes
