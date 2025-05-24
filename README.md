@@ -29,6 +29,9 @@ zk list --format json > data/zk.json # output data to json
 # Data is saved to `data/simdiss.json`
 ./main.py sl compare --title "Zettelkasten is an interface for thought"
 
+# Cluster notes by similarity (default: 10)
+./main.py sl cluster --clusters <n>
+
 # list notes topically related to given search term
 ./main.py tm list --related "Zettelkasten is an interface for thought"
 

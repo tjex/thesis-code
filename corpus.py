@@ -58,15 +58,6 @@ class Corpus:
         cls.titles = titles
         cls.paths = paths
 
-    @classmethod
-    def generate_embeddings(cls, model):
-        cls.corpus_embeddings = model.encode(cls.cleaned_notes)
-
-    # Return embeddings of entire corpus
-    @classmethod
-    def embeddings(cls):
-        return cls.corpus_embeddings
-
     # Lookup the index of a note by title
     @classmethod
     def get_index_from_title(cls, title):

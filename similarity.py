@@ -1,8 +1,43 @@
-from sentence_transformers import util
+from sentence_transformers import util as sbert_utils
+from sklearn.cluster import AgglomerativeClustering
 import numpy as np
 import torch, json
 from corpus import Corpus as corpus
+import util
 
+class SBERT:
+    @classmethod
+    def generate_embeddings(cls, model, notes):
+        print("Generating embeddings...")
+        embeddings = model.encode(notes)
+        util.save_embeddings(embeddings)
+        return embeddings
+
+    # Cluster similar notes together
+    # Agglomerative clustering.
+    @classmethod
+    def agglo_clustering(cls, nc):
+        """
+        nc: number of clusters to divide into.
+        """
+        similarities = util.load_similarities()
+        note_titles = corpus.titles
+        clustering_model = AgglomerativeClustering(n_clusters=nc,
+                                                   distance_threshold=None)
+        clustering_model.fit(similarities)
+        cluster_assignment = clustering_model.labels_
+
+        clustered_notes = {}
+        for sentence_id, cluster_id in enumerate(cluster_assignment):
+            if cluster_id not in clustered_notes:
+                clustered_notes[cluster_id] = []
+
+            clustered_notes[cluster_id].append(note_titles[sentence_id])
+
+        for i, cluster in clustered_notes.items():
+            print("Cluster ", i + 1)
+            print(cluster)
+            print("")
 
 # The max value of a similarity tensor is always 1.0
 # this will skew subsequent calculations such as averages and other ranges.
@@ -22,8 +57,9 @@ def unbiased_min_max(tensor, note_index) -> tuple[float, float]:
 # The default implementation compairs similarity scores of two
 # inputs: https://sbert.net/docs/sentence_transformer/usage/semantic_textual_similarity.html
 def cos_sim_elementwise(embeddings):
-    a = util._convert_to_batch_tensor(embeddings)
-    a_norm = util.normalize_embeddings(a)
+    print("Calculating similarity scores (cosine)...")
+    a = sbert_utils._convert_to_batch_tensor(embeddings)
+    a_norm = sbert_utils.normalize_embeddings(a)
     return torch.mm(a_norm, a_norm.transpose(0, 1))
 
 
@@ -58,6 +94,7 @@ def std_dev_divisions(similarities):
 # Process a simdiss for a singular note against all other notes
 # in the corpus. There are 5 segments from "least similar" to "most similar".
 def note_simdiss(similarities, title, strategy):
+    print(f"Calculating similarities against: {title}")
     # s for segments. For "least similar" to "most similar" notes.
     s1, s2, s3, s4, s5 = [], [], [], [], []
 
