@@ -42,9 +42,11 @@ def cli_args():
     # topic modeling args
     topic_parser = subparsers.add_parser("tm",
                                          help="Work with topic modeling.")
-    topic_subparsers = topic_parser.add_subparsers(dest="topic_command",
-                                                   required=True)
+    topic_subparsers = topic_parser.add_subparsers(dest="topic_command")
 
+    topic_parser.add_argument("--search",
+                              type=str,
+                              help="Find topics most similar to search term.")
     topic_subparsers.add_parser("train", help="Train topic model.")
     list_parser = topic_subparsers.add_parser("list",
                                               help="List various results.")
@@ -54,9 +56,6 @@ def cli_args():
     list_parser.add_argument("--docs-for-topic",
                              type=int,
                              help="List documents belonging to a given topic.")
-    list_parser.add_argument("--topic-search",
-                             type=str,
-                             help="Find topics most similar to search term.")
     list_parser.add_argument(
         "--related",
         type=str,
@@ -103,6 +102,9 @@ def main():
                 sbert.agglo_clustering(args.clusters)
 
     if args.command == "tm":
+        if args.topic_search:
+            bertopic.topic_search(args.topic_search)
+            return
         match args.topic_command:
             case "train":
                 bertopic.derive_topics()
@@ -113,9 +115,6 @@ def main():
 
                 if args.docs_for_topic is not None:
                     bertopic.list_docs_for_topic(args.docs_for_topic)
-
-                if args.topic_search is not None:
-                    bertopic.topic_search(args.topic_search)
 
                 if args.related is not None:
                     bertopic.list_topically_related_notes(args.related)
