@@ -44,10 +44,12 @@ def cli_args():
                                          help="Work with topic modeling.")
     topic_subparsers = topic_parser.add_subparsers(dest="topic_command")
 
-    topic_parser.add_argument("--search",
-                              type=str,
-                              help="Find topics most similar to search term.")
+    search_parser = topic_subparsers.add_parser(
+        "search", help="Find topics most similar to search term.")
+    search_parser.add_argument("term", type=str, help="Topic term to search.")
+
     topic_subparsers.add_parser("train", help="Train topic model.")
+
     list_parser = topic_subparsers.add_parser("list",
                                               help="List various results.")
     list_parser.add_argument("--topics",
@@ -102,10 +104,10 @@ def main():
                 sbert.agglo_clustering(args.clusters)
 
     if args.command == "tm":
-        if args.topic_search:
-            bertopic.topic_search(args.topic_search)
-            return
         match args.topic_command:
+            case "search":
+                bertopic.topic_search(args.term)
+
             case "train":
                 bertopic.derive_topics()
 
