@@ -25,9 +25,9 @@ class BTopic:
         vectorizer = CountVectorizer(ngram_range=(2, 2),
                                      stop_words=standard_stopwords)
 
-        cls.topic_model = BERTopic(top_n_words=10,
+        cls.topic_model = BERTopic(top_n_words=20,
                                    n_gram_range=(2, 2),
-                                   nr_topics=30,
+                                   nr_topics=10,
                                    embedding_model=embedding_model,
                                    vectorizer_model=vectorizer,
                                    umap_model=UMAP(n_neighbors=30,

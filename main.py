@@ -92,6 +92,7 @@ def main():
                                                        corpus.cleaned_notes)
                 similarities = similarity.cos_sim_elementwise(embeddings)
                 util.save_similarities(similarities)
+                similarity.least_similar_note(similarities)
 
             case "compare":
                 title_input = args.title

@@ -50,6 +50,17 @@ def unbiased_min_max(tensor, note_index) -> tuple[float, float]:
 
     return min, max
 
+def least_similar_note(tensor):
+
+    # Remove self-similarities (diagonal entries)
+    t_no_diag = tensor.clone()
+    t_no_diag.fill_diagonal_(0)
+
+    total_similarity = t_no_diag.sum(dim=1)
+
+    index = torch.argmin(total_similarity)
+    title = corpus.titles[index]
+    print(title)
 
 # Modified code of SentenceTransformers.util.cos_sim().
 # This proves a [note x note] similarity matrix, which can be
@@ -83,10 +94,10 @@ def std_dev_divisions(similarities):
     mean = np.mean(similarities)
     std = np.std(similarities)
 
-    div1 = round(mean - 2 * std, 4)
-    div2 = round(mean - 1 * std, 4)
-    div3 = round(mean + 1 * std, 4)
-    div4 = round(mean + 2 * std, 4)
+    div1 = round(mean - 2 * std, 2)
+    div2 = round(mean - 1 * std, 2)
+    div3 = round(mean + 1 * std, 2)
+    div4 = round(mean + 2 * std, 2)
 
     return div1, div2, div3, div4
 

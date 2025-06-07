@@ -32,17 +32,18 @@ zk list --format json > data/zk.json # output data to json
 # Cluster notes by similarity (default: 10)
 ./main.py sl cluster --clusters <n>
 
-# list notes topically related to given search term
-./main.py tm list --related "Zettelkasten is an interface for thought"
-
 # list topics of corpus and their topic ids.
 ./main.py tm list --topics
 
 # list documents belonging to given topic.
 ./main.py tm list --docs-for-topic <topic-id>
 
+# list notes topically related to given search term
+./main.py tm list --related "Zettelkasten is an interface for thought"
+
 # search for topics related to given term.
-./main.py tm list --topic-search <string>
+./main.py tm search <search term>
+
 ```
 
 
