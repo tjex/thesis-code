@@ -1,6 +1,7 @@
 from bertopic import BERTopic
 import pandas as pd
 from umap import UMAP
+from bertopic.representation import KeyBERTInspired
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
 import seaborn as sns
@@ -22,15 +23,16 @@ class BTopic:
         cls.notes = notes
         cls.titles = titles
         cls.titles_dict = titles_dict
-        vectorizer = CountVectorizer(ngram_range=(2, 2),
+        vectorizer_model = CountVectorizer(ngram_range=(1, 2), min_df=2,
                                      stop_words=standard_stopwords)
 
-        cls.topic_model = BERTopic(top_n_words=20,
-                                   n_gram_range=(2, 2),
-                                   nr_topics=10,
+        cls.topic_model = BERTopic(top_n_words=10,
+                                   n_gram_range=(1, 2),
+                                   min_topic_size=8,
+                                   nr_topics="auto",
                                    embedding_model=embedding_model,
-                                   vectorizer_model=vectorizer,
-                                   umap_model=UMAP(n_neighbors=30,
+                                   vectorizer_model=vectorizer_model,
+                                   representation_model=KeyBERTInspired(),                                   umap_model=UMAP(n_neighbors=10,
                                                    n_components=5,
                                                    min_dist=0.0,
                                                    metric='cosine'))

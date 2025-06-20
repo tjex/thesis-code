@@ -3,7 +3,7 @@
 # https://www.sbert.net/docs/quickstart.html
 
 from sentence_transformers import SentenceTransformer
-import topic_modeling
+import topic_modelling
 import similarity
 import corpus as cor
 import argparse
@@ -39,9 +39,9 @@ def cli_args():
         type=str,
         default="std")
 
-    # topic modeling args
+    # topic modelling args
     topic_parser = subparsers.add_parser("tm",
-                                         help="Work with topic modeling.")
+                                         help="Work with topic modelling.")
     topic_subparsers = topic_parser.add_subparsers(dest="topic_command")
 
     search_parser = topic_subparsers.add_parser(
@@ -81,7 +81,7 @@ def main():
 
     # Init SBERT and BERTopic classes
     sbert = similarity.SBERT
-    bertopic = topic_modeling.BTopic
+    bertopic = topic_modelling.BTopic
     bertopic.init(model, corpus.cleaned_notes, corpus.titles,
                   corpus.titles_dict)
 
