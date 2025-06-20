@@ -35,8 +35,9 @@ class SBERT:
             clustered_notes[cluster_id].append(note_titles[sentence_id])
 
         for i, cluster in clustered_notes.items():
-            print("Cluster ", i + 1)
-            print(cluster)
+            print(f"Cluster {i}:")
+            for j, title in enumerate(cluster):
+                print(f"{j}. {title}")
             print("")
 
 # The max value of a similarity tensor is always 1.0

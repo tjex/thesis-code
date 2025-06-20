@@ -23,8 +23,9 @@ class BTopic:
         cls.notes = notes
         cls.titles = titles
         cls.titles_dict = titles_dict
-        vectorizer_model = CountVectorizer(ngram_range=(1, 2), min_df=2,
-                                     stop_words=standard_stopwords)
+        vectorizer_model = CountVectorizer(ngram_range=(1, 2),
+                                           min_df=2,
+                                           stop_words=standard_stopwords)
 
         cls.topic_model = BERTopic(top_n_words=10,
                                    n_gram_range=(1, 2),
@@ -32,10 +33,11 @@ class BTopic:
                                    nr_topics="auto",
                                    embedding_model=embedding_model,
                                    vectorizer_model=vectorizer_model,
-                                   representation_model=KeyBERTInspired(),                                   umap_model=UMAP(n_neighbors=10,
+                                   umap_model=UMAP(n_neighbors=10,
                                                    n_components=5,
                                                    min_dist=0.0,
-                                                   metric='cosine'))
+                                                   metric='cosine', 
+                                                   random_state=42))
 
     @classmethod
     def _load_model(cls) -> BERTopic:
@@ -131,4 +133,3 @@ class BTopic:
         note_topic = df["topic"][note_index]
         print(f"Documents topically related to: {title}\n")
         cls.list_docs_for_topic(note_topic)
-
