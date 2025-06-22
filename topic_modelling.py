@@ -122,7 +122,6 @@ class BTopic:
         if topic_docs.empty:
             print(f"No documents found for topic {topic_id}.")
         else:
-            print(f"Documents for topic {topic_id}:\n")
             for i, doc in enumerate(topic_docs["title"], 1):
                 print(f"{i}. {doc}")
 
