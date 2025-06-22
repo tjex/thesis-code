@@ -130,4 +130,5 @@ class BTopic:
         note_index = cls.titles_dict[title]
         df = cls._get_topic_data()
         note_topic = df["topic"][note_index]
+        print(f"Notes topically related to, {title}")
         cls.list_docs_for_topic(note_topic)

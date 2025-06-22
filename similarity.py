@@ -34,7 +34,7 @@ class SBERT:
 
             clustered_notes[cluster_id].append(note_titles[sentence_id])
 
-        for i, cluster in clustered_notes.items():
+        for i, cluster in sorted(clustered_notes.items()):
             print(f"Cluster {i}:")
             for j, title in enumerate(cluster):
                 print(f"{j}. {title}")
