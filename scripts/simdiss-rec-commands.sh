@@ -22,21 +22,21 @@ nvim data/simdiss.json
 printf "\n"
 
 countdown "python main.py sl cluster --clusters 15"
-python main.py sl cluster --clusters 15 | less
+python main.py sl cluster --clusters 15
 printf "\n"
 
 countdown "python main.py tm list --topics"
-python main.py tm list --topics | less
+python main.py tm list --topics
 printf "\n"
 
 countdown "python main.py tm list --docs-for-topic 2"
-python main.py tm list --docs-for-topic 2 | less
+python main.py tm list --docs-for-topic 2
 printf "\n"
 
 countdown "python main.py tm list --related 'Zettelkasten is an interface for thought'"
-python main.py tm list --related "Zettelkasten is an interface for thought" | less
+python main.py tm list --related "Zettelkasten is an interface for thought"
 printf "\n"
 
 countdown "python main.py tm search 'creative technologies'"
-python main.py tm search "creative technologies" | less
+python main.py tm search "creative technologies"
 printf "\n"
