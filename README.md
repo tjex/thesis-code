@@ -16,7 +16,8 @@ user can output their Zettelkasten data as json
 
 The `demo.cast` is a terminal recording of this program's functionality. 
 It can be played back within the terminal using [asciinema](https://asciinema.org/) 
-and is available to view online.
+and is available to [view
+online](https://asciinema.org/a/lMz4rISK6pUD0LdJHic6jywnK).
 
 A typical workflow may look as follows:
 
