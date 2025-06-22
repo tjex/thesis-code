@@ -14,6 +14,10 @@ The technical scope is (currently) somewhat limited, in that it is assumed the
 user can output their Zettelkasten data as json
 ([zk](https://github.com/zk-org/zk) can do this).
 
+The `demo.cast` is a terminal recording of this program's functionality. 
+It can be played back within the terminal using [asciinema](https://asciinema.org/) 
+and is available to view online.
+
 A typical workflow may look as follows:
 
 A user is currently working on a note, \_"Zettelkasten is an interface for
