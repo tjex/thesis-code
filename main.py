@@ -37,7 +37,7 @@ def cli_args():
         "--strategy",
         help="Strategy to group notes: std (i.e, standard deviation) or even.",
         type=str,
-        default="std")
+        default="even")
 
     # topic modelling args
     topic_parser = subparsers.add_parser("tm",
@@ -92,7 +92,6 @@ def main():
                                                        corpus.cleaned_notes)
                 similarities = similarity.cos_sim_elementwise(embeddings)
                 util.save_similarities(similarities)
-                similarity.least_similar_note(similarities)
 
             case "compare":
                 title_input = args.title

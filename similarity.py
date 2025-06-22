@@ -51,10 +51,13 @@ def unbiased_min_max(tensor, note_index) -> tuple[float, float]:
 
     return min, max
 
-def least_similar_note(tensor):
+# Get the least similar note from the corpus
+# Useful for testing ability of similarity learning and also 
+# for the sake of interest!
+def least_similar_note(similarities):
 
     # Remove self-similarities (diagonal entries)
-    t_no_diag = tensor.clone()
+    t_no_diag = similarities.clone()
     t_no_diag.fill_diagonal_(0)
 
     total_similarity = t_no_diag.sum(dim=1)
