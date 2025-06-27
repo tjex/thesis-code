@@ -4,7 +4,6 @@ from umap import UMAP
 from bertopic.representation import KeyBERTInspired
 from sklearn.feature_extraction.text import CountVectorizer
 from nltk.corpus import stopwords
-import seaborn as sns
 import matplotlib.pyplot as plt
 import os
 import corpus

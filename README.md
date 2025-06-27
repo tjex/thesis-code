@@ -54,12 +54,23 @@ zk list --format json > data/zk.json # output data to json
 
 ## Installation
 
+The following block of commands will clone the repo and set up the project. It
+will install all python packages in a virtual environment, BUT it will download
+NLTK assets. NLTK will print the destination of where it's writing to, but you
+can set it to a specific destination with (for example):
+
+```bash
+export NLTK_DATA="$XDG_DATA_HOME/nltk_data"
+```
+
+Note: This project has only been tested with python version 3.13
+
 ```bash
 git clone git@git.sr.ht:~tjex/thesis-code
 cd thesis-code
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python main.py setup.py
+python setup.py
 python main.py --help
 ```
