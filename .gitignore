@@ -1,7 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python
 # Edit at https://www.toptal.com/developers/gitignore?templates=python
 
-data/
+data/*
+!data/ideaverse-lite-1.5.json
+
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
