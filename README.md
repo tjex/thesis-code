@@ -68,6 +68,8 @@ functionality without exporting your own data. It's the publicly available
 Simply rename this file to `zk.json` and run the example as below.
 
 Note: the title used in the examples below will not work with the demo data.
+Instead, search through the JSON file for an interesting title, or simply use
+this one as a demo: `What is an ideaverse`
 
 ## Workflow Example
 
