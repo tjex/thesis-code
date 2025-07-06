@@ -1,5 +1,9 @@
-simdiss dbase: no cleaning at all. passing note bodies as is.
+# Testing of manual markdown cleaning against base corpus
+
+simdiss base: no cleaning at all. Passing note bodies as is.
 simdiss manual: remove newlines, remove md syntax, remove md link syntax
+
+The full diff can be viewed here: [https://www.diffchecker.com/nM7BDgzV/](https://www.diffchecker.com/nM7BDgzV/).
 
 diff shows more accurate and relevant results being attributed to the segments
 in simidss-manual.json. 
@@ -14,4 +18,3 @@ similarity tensor comparrison:
 Mean absolute difference: 0.023315
 Max absolute difference: 0.402765
 
-diff checker: https://www.diffchecker.com/FiB9R0y0/
