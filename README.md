@@ -53,12 +53,21 @@ If the user does not already use `zk` as their Zettelkasten program, they should
 copy their current Zettelkasten (e.g, Obsidian vault) to a new location. Enter
 that directory and execute `zk init` and follow the prompts.
 
-In `.zprofile` / `.profile` set `export ZK_NOTEBOOK_DIR="${HOME}/path/to/copied/vault"`
-and refresh the shell or close and open a new one.
+In `.zprofile` / `.profile` set
+`export ZK_NOTEBOOK_DIR="${HOME}/path/to/copied/vault"` and refresh the shell or
+close and open a new one.
 
 Now `zk` commands can be run from anywhere as the global notebook has been set.
 Navigate to this clone repository and implement the below workflow example.
 
+Alternatively, there is a pre-exported demo data set,
+`./data/ideaverse-lite-1.5.json` that can be used to test this program's
+functionality without exporting your own data. It's the publicly available
+[LYT Kit](https://www.linkingyourthinking.com/myideaverse/treasure).
+
+Simply rename this file to `zk.json` and run the example as below.
+
+Note: the title used in the examples below will not work with the demo data.
 
 ## Workflow Example
 
@@ -91,4 +100,3 @@ python ./main.py tm list --related "Zettelkasten is an interface for thought"
 python ./main.py tm search <search term>
 
 ```
-
