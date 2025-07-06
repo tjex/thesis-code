@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Return word count data for a Zettelksaten repository.
+
 shopt -s globstar # Enable recursive globbing with **
 max_count=0
 cumulative_count=0
