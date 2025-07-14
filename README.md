@@ -16,6 +16,8 @@ program's functionality. It can be played back within the terminal using
 [asciinema](https://asciinema.org/) (requires installation) and is available to
 [view online](https://asciinema.org/a/lMz4rISK6pUD0LdJHic6jywnK).
 
+![Demonstration:](demo.gif)
+
 ## Requirements
 
 - [`zk`](https://github.com/zk-org/zk) (required to export notes to JSON)
