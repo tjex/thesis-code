@@ -11,12 +11,9 @@ of the Zettelkasten method by using machine learning processes, namely
 similarity learning ([SBERT](https://sbert.net)) and topic modelling
 ([BERTopic](https://maartengr.github.io/BERTopic/index.html)).
 
-The `demo.cast` in the root of this repository is a terminal recording of this
-program's functionality. It can be played back within the terminal using
-[asciinema](https://asciinema.org/) (requires installation) and is available to
-[view online](https://asciinema.org/a/lMz4rISK6pUD0LdJHic6jywnK).
-
-![Demonstration:](demo.gif)
+A demonstration of the features is at the bottom of this page, and is also
+available to [view on
+asciinema.org](https://asciinema.org/a/lMz4rISK6pUD0LdJHic6jywnK).
 
 ## Requirements
 
@@ -104,3 +101,7 @@ python ./main.py tm list --related "Zettelkasten is an interface for thought"
 python ./main.py tm search <search term>
 
 ```
+
+## Demonstration
+
+![Demonstration:](demo.gif)
